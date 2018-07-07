@@ -1,4 +1,6 @@
 const { AkairoClient, SequelizeProvider } = require('discord-akairo');
+const moment = require('moment');
+const chrono = require('chrono-node');
 
 class NeptuneClient extends AkairoClient {
 	constructor(config) {
@@ -22,6 +24,7 @@ class NeptuneClient extends AkairoClient {
 			},
 		});
 
+		this.helper = require('./helper');
 		this.database = require('../postgresql/models.js');
 		this.config = config;
 		this.bus = require('./bus.js');
@@ -31,8 +34,7 @@ class NeptuneClient extends AkairoClient {
 			dataColumn: 'JSON'
 		});
 		
-		this.Permissions = {
-		}
+		this.players = new SequelizeProvider(this.database.PLAYER);
 	}
 
 	async start(auth) {
@@ -41,6 +43,16 @@ class NeptuneClient extends AkairoClient {
 		await this.login(auth);
 		//this.bus.addFunction(this.remind.checkReminds, false, 'Reminds');
 		this.bus.loop = setInterval(this.bus.execFunctions, 5000);
+	}
+
+	parseDate(input) {
+		var parsedTime = moment(input);
+		if (parsedTime.isValid()) return parsedTime;
+		parsedTime = moment(new Date(msg.client.helper.parseUgly(args.time).absolute));
+		if (parsedTime.isValid()) return parsedTime;
+		parsedTime = chrono.parseDate(input);
+		if (parsedTime !== null) return parsedTime;
+		return false;
 	}
 }
 

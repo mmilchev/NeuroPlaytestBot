@@ -16,8 +16,26 @@ let SETTINGS = database.db.define('settings', {
 	JSON: { type: Sequelize.JSONB }
 });
 
+let PLAYER = database.db.define('players', {
+	Name: { type: Sequelize.STRING },
+	ID: { type: Sequelize.BIGINT },
+	MRR: { type: Sequelize.INTEGER }
+});
+
+let PLAYTESTS = database.db.define('playtests', {
+	When: { type: Sequelize.DATE },
+	Attendees: { type: Sequelize.ARRAY(Sequelize.BIGINT) },
+	Finished: { type: Sequelize.BOOLEAN },
+	Started: { type: Sequelize.BOOLEAN },
+	Stage: { type: Sequelize.INTEGER },
+	Channel: { type: Sequelize.BIGINT },
+	Pairs: { type: Sequelize.JSONB }
+});
+
 
 REMINDS.sync();
 SETTINGS.sync();
+PLAYER.sync();
+PLAYTESTS.sync();
 
-module.exports = { REMINDS, SETTINGS };
+module.exports = { REMINDS, SETTINGS, PLAYER, PLAYTESTS };
