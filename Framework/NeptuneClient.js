@@ -22,7 +22,6 @@ class NeptuneClient extends AkairoClient {
 			},
 		});
 
-		this.notify = require('./notify');
 		this.config = config;
 		this.bus = require('./bus.js');
 		this.remind = require('./remind');
