@@ -1,0 +1,14 @@
+{
+    "ownerID": "132136706378956800",
+    "prefix": "%",
+    "commandDirectory": "./Commands/",
+    "inhibitorDirectory": "./Inhibitors/",
+    "listenerDirectory": "./Listeners/",
+    "loginToken": "./Auth/auth.json",
+    "channels": {
+        "log": "",
+        "error": "",
+        "blocked": ""
+    },
+	"color": "#ddaadd"
+}

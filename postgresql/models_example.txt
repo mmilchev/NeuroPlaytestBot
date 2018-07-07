@@ -1,0 +1,10 @@
+SETTINGS:
+
+<guildId>: {
+    "settings": {
+        admins: [],
+    },
+    "notify": {
+        
+    }
+}
