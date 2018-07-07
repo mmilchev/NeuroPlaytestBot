@@ -22,6 +22,7 @@ class NeptuneClient extends AkairoClient {
 			},
 		});
 
+		this.database = require('../postgresql/models.js');
 		this.config = config;
 		this.bus = require('./bus.js');
 		this.remind = require('./remind');
