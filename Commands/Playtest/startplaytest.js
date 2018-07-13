@@ -103,7 +103,7 @@ Moving players to voicechannel in 10 seconds.`);
         return new Promise(resolve => {
             msg.channel.send(`Playtest ${playtest.id} has been started. Performing ready-check.`);
             msg.channel.send(`Please send a message in the channel, so you are marked as ready. You have 5 minutes to check in. ${playtest.Attendees.map((e) => `<@!${e}>`).join(' ')}`);
-            var toCollect = player.Attendees;
+            var toCollect = playtest.Attendees;
             var collector = new MessageCollector(msg.channel, mess => toCollect.indexOf(mess.author.id) !== -1);
             var waittime = setTimeout(() => collector.stop("timeout"), 300000);
             collector.on('collect', (mess) => {
