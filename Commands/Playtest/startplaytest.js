@@ -113,7 +113,7 @@ Moving players to voicechannel in 10 seconds.`);
 			var collector = new MessageCollector(msg.channel, mess => toCollect.indexOf(mess.author.id) !== -1);
 			var waittime = setTimeout(() => collector.stop('timeout'), 300000);
 			collector.on('collect', (mess) => {
-				toCollect = this.client.helper.remove(toCollect, mess.author.id);
+				toCollect = this.client.helper.arrayRemove(toCollect, mess.author.id);
 				if (toCollect.length == 0) {
 					collector.stop('ready');
 					clearTimeout(waittime);
