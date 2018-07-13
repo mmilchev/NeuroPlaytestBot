@@ -48,7 +48,7 @@ class NeptuneClient extends AkairoClient {
 	parseDate(input) {
 		var parsedTime = moment(input);
 		if (parsedTime.isValid()) return parsedTime;
-		parsedTime = moment(new Date(msg.client.helper.parseUgly(args.time).absolute));
+		parsedTime = moment(new Date(this.helper.parseUgly(input).absolute));
 		if (parsedTime.isValid()) return parsedTime;
 		parsedTime = chrono.parseDate(input);
 		if (parsedTime !== null) return parsedTime;
