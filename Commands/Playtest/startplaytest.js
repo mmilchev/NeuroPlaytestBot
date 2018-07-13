@@ -44,7 +44,7 @@ module.exports = class StartPlayTestCommand extends Command {
                 id: playtestid
             }
         };
-        var playtest = this.client.database.PLAYTESTS.findOne(playtestid);
+        var playtest = await this.client.database.PLAYTESTS.findOne(playtestid);
         var players = Object.assign([], playtest.Attendees);
         var ready = await this.readyCheck(msg, playtest);
         if (!ready) return msg.reply('Aborting playtest.');
