@@ -19,6 +19,7 @@ module.exports = class AttendCommand extends Command {
         if (playtestid == "upcoming") playtestid = {where: {Finished: false },order: [['When', 'ASC']]};
         else playtestid = {where: {Finished: false, id: playtestid }};
         this.client.database.PLAYTESTS.findOne(playtestid).then((ele) => {
+            console.log(ele);
             if (ele.Attendees.indexOf(msg.author.id) !== -1) msg.reply('You are already attending the playtest.');
             ele.update({
                 Attendees: ele.Attendees.push(msg.author.id)
