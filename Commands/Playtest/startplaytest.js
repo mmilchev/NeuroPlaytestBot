@@ -102,7 +102,8 @@ Moving players to voicechannel in 10 seconds.`);
             res.update(playtest);
         })
     }
-    readCheck(msg, playtest) {
+    
+    readyCheck(msg, playtest) {
         return new Promise((resolve, reject) => {
             msg.channel.send(`Playtest ${playtest.id} has been started. Performing ready-check.`);
             msg.channel.send(`Please send a message in the channel, so you are marked as ready. You have 5 minutes to check in. ${playtest.Attendees.map((e) => `<@!${e}>`).join(' ')}`);
