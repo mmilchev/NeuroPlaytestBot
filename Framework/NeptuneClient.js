@@ -45,6 +45,14 @@ class NeptuneClient extends AkairoClient {
 		this.bus.loop = setInterval(this.bus.execFunctions, 5000);
 	}
 
+	hasPermission (member) {
+		return (member.roles.has('465238967663591455'));
+	}
+
+	canAttend(member) {
+		return (member.roles.has('465238967663591455'));
+	}
+
 	parseDate(input) {
 		var parsedTime = moment(input);
 		if (parsedTime.isValid()) return parsedTime;

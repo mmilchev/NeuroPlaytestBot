@@ -26,6 +26,10 @@ module.exports = class StartPlayTestCommand extends Command {
 			}]
 		});
 	}
+    
+	userPermissions(msg) {
+		return this.client.hasPermission(msg.member);
+	}
 
 	async exec(msg, {
 		playtestid

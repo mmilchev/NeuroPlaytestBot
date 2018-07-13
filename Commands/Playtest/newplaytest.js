@@ -14,10 +14,16 @@ module.exports = class NPTCommand extends Command {
 			}]
 		});
 	}
+    
+	userPermissions(msg) {
+		return this.client.hasPermission(msg.member);
+	}
+
 
 	exec(msg, {
 		date
 	}) {
+        
 		date = this.client.parseDate(date);
 		if (!date) return msg.reply('Couldn\'t parse date format.');
 		this.client.database.PLAYTESTS.create({

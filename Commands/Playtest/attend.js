@@ -14,6 +14,10 @@ module.exports = class AttendCommand extends Command {
 			}]
 		});
 	}
+    
+	userPermissions(msg) {
+		return this.client.canAttend(msg.member);
+	}
 
 	exec(msg, {playtestid}) {
 		if (playtestid == 'upcoming') playtestid = {where: {Finished: false },order: [['When', 'ASC']]};
