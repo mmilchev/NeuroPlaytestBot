@@ -108,15 +108,15 @@ Moving players to voicechannel in 10 seconds.`);
             var waittime = setTimeout(() => collector.stop("timeout"), 300000);
             collector.on('collect', (mess) => {
                 toCollect = this.client.helper.arrayRemove(toCollect, mess.author.id);
-                console.log(toCollect);
                 if (toCollect.length == 0) {
                     collector.stop("ready");
                     clearTimeout(waittime);
-                    console.log('end');
                 }
             });
             
             collector.on('end', (coll, reason) => {
+                console.log(reason);
+                console.log(reason == "ready");
                 if (reason == "ready") msg.reply('Everyone is ready. Initalizing Groups.').then(resolve(true));
                 if (reason == "timeout") {
                     msg.reply(`Users not ready: ${toCollect.map(usr => this.client.users.get(us).username).join(' ')}. Type abort or start to decide.`);
