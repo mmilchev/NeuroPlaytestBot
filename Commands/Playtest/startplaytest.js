@@ -46,12 +46,10 @@ module.exports = class StartPlayTestCommand extends Command {
 		};
 		var playtest = await this.client.database.PLAYTESTS.findOne(playtestid);
 		var players = Object.assign([], playtest.Attendees);
-		/*var ready = await this.readyCheck(msg, playtest);
-        console.log("hello?");
-        if (ready !== true) return msg.reply('Aborting playtest.\n' + ready);*/
-		console.log('asd-1');
-		msg.channel.send('Starting playtest.');
-		console.log('asd');
+		var ready = await this.readyCheck(msg, playtest);
+		console.log('hello?');
+		if (ready !== true) return msg.reply('Aborting playtest.\n' + ready);
+		await msg.channel.send('Starting playtest.');
 		/*var pairs = [];
         for (var i = 0; i < Math.floor(players / 2); i++) {
             var num1 = Math.floor(Math.random() * players);
