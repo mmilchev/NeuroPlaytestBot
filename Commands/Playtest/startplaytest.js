@@ -111,6 +111,7 @@ Moving players to voicechannel in 10 seconds.`);
             let collector = new MessageCollector(msg.channel, mess => toCollect.indexOf(mess.author.id) != -1);
             var waittime = setTimeout(() => collector.stop("timeout"), 300000);
             collector.on('collect', (mess) => {
+                console.log(msg);
                 this.delegateSend(msg.channel, "test");
                 toCollect = this.client.helper.arrayRemove(toCollect, mess.author.id);
                 if (toCollect.length == 0) {
@@ -128,7 +129,7 @@ Moving players to voicechannel in 10 seconds.`);
     }
 
     delegateSend (channel, message) {
-        this.client.channels.get(channel).reply(message)
+        this.client.channels.get(channel).send(message)
     };
 
     /*
