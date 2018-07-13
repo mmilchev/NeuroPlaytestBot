@@ -94,11 +94,35 @@ Moving players to voicechannel in 10 seconds.`);
             playtest.Finished = true;
             playtest.Pairs = JSON.stringify(pairs.map((ele) => ele.map((usr) => this.client.users.get(usr).username)));
         }, 600000));
-        this.client.database.findOne({where: {id: playtest.id}}).then((res) => {
+        this.client.database.findOne({
+            where: {
+                id: playtest.id
+            }
+        }).then((res) => {
             res.update(playtest);
         })
     }
+    readCheck(msg, playtest) {
+        return new Promise((resolve, reject) => {
+            msg.channel.send(`Playtest ${playtest.id} has been started. Performing ready-check.`);
+            msg.channel.send(`Please send a message in the channel, so you are marked as ready. You have 5 minutes to check in. ${playtest.Attendees.map((e) => `<@!${e}>`).join(' ')}`);
+            var toCollect = playtest.Attendees;
+            let collector = new MessageCollector(msg.channel, mess => toCollect.indexOf(mess.author.id) != -1);
+            var waittime = setTimeout(() => collector.stop("timeout"), 300000);
+            collector.on('collect', (mess) => {
+                toCollect = this.client.helper.remove(toCollect, mess.author.id);
+                if (toCollect.length == 0) {
+                    collector.stop("ready");
+                    clearTimeout(waittime);
+                }
+            });
+            collector.on('end', (coll, reason) => {
+                if (reason == "ready") msg.reply('Everyone is ready. Initalizing Groups.').then(resolve(true)); //hangs here
+            })
+        })
+    }
 
+    /*
     readyCheck(msg, playtest) {
         return new Promise(resolve => {
             msg.channel.send(`Playtest ${playtest.id} has been started. Performing ready-check.`);
@@ -119,5 +143,5 @@ Moving players to voicechannel in 10 seconds.`);
                 if (reason == "timeout") resolve(`Users not ready: ${toCollect.map(usr => this.client.users.get(us).username).join(' ')}.`);
             });
         });
-    }
+    }*/
 }
