@@ -117,6 +117,7 @@ Moving players to voicechannel in 10 seconds.`);
                 }
             });
             collector.on('end', (coll, reason) => {
+                console.log("test");
                 if (reason == "ready") msg.reply('Everyone is ready. Initalizing Groups.').then(resolve(true)); //hangs here
             })
         })
