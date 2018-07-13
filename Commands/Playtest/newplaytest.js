@@ -16,7 +16,10 @@ module.exports = class NPTCommand extends Command {
 	}
     
 	userPermissions(msg) {
-		return this.client.hasPermission(msg.member);
+		if (this.client.hasPermission(msg.member)) 
+			return true;
+		else
+			return msg.reply('Sorry, you don\'t have permission to start a new playtest.');
 	}
 
 

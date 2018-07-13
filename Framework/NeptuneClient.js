@@ -46,11 +46,13 @@ class NeptuneClient extends AkairoClient {
 	}
 
 	hasPermission (member) {
-		return (member.roles.has('465238967663591455'));
+		//return (member.roles.has('465238967663591455'));
+		return true;
 	}
 
 	canAttend(member) {
-		return (member.roles.has('465238967663591455'));
+		//return (member.roles.has('465238967663591455'));
+		return true;
 	}
 
 	parseDate(input) {

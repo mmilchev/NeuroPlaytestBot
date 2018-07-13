@@ -16,7 +16,10 @@ module.exports = class AttendCommand extends Command {
 	}
     
 	userPermissions(msg) {
-		return this.client.canAttend(msg.member);
+		if (this.client.canAttend(msg.member))
+			return true;
+		else
+			msg.reply('Sorry, you are not part of the Sentry group.');
 	}
 
 	exec(msg, {playtestid}) {
