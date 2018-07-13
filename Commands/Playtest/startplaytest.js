@@ -30,7 +30,7 @@ module.exports = class StartPlayTestCommand extends Command {
     async exec(msg, {
         playtestid
     }) {
-        /*if (playtestid == "upcoming") playtestid = {
+        if (playtestid == "upcoming") playtestid = {
             where: {
                 Finished: false
             },
@@ -43,8 +43,8 @@ module.exports = class StartPlayTestCommand extends Command {
                 Finished: false,
                 id: playtestid
             }
-        };*/
-        var playtest = await this.client.database.PLAYTESTS.findOne();
+        };
+        var playtest = await this.client.database.PLAYTESTS.findOne(playtestid);
         var players = Object.assign([], playtest.Attendees);
         /*var ready = await this.readyCheck(msg, playtest);
         console.log("hello?");
