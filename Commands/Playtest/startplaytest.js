@@ -108,9 +108,11 @@ Moving players to voicechannel in 10 seconds.`);
             var waittime = setTimeout(() => collector.stop("timeout"), 300000);
             collector.on('collect', (mess) => {
                 toCollect = this.client.helper.arrayRemove(toCollect, mess.author.id);
+                console.log(toCollect);
                 if (toCollect.length == 0) {
                     collector.stop("ready");
                     clearTimeout(waittime);
+                    console.log('end');
                 }
             });
             
