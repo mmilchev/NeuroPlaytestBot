@@ -127,7 +127,7 @@ Moving players to voicechannel in 10 seconds.`);
         })
     }
 
-    delegateSend = (channel, message) => {
+    delegateSend (channel, message) {
         this.client.channels.get(channel).reply(message)
     };
 
