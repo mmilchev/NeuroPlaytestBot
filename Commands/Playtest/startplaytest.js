@@ -50,10 +50,16 @@ module.exports = class StartPlayTestCommand extends Command {
 		if (!ready) return msg.reply('Aborting playtest.');
 		await msg.channel.send('Starting playtest.');
 		var pairs = [];
+		console.log(players);
+		var alone;
+		if (players % 2 == 1) {
+			alone = players[Math.floor(Math.random() * players)];
+			players = this.client.helper.arrayRemove(players, alone);
+		}
 		for (var i = 0; i < Math.floor(players / 2); i++) {
-			var num1 = Math.floor(Math.random() * players);
+			var num1 = players[Math.floor(Math.random() * players)];
 			players = this.client.helper.arrayRemove(players, num1);
-			var num2 = Math.floor(Math.random() * players);
+			var num2 = players[Math.floor(Math.random() * players)];
 			players = this.client.helper.arrayRemove(players, num2);
 			pairs.push([num1, num2]);
 		}
@@ -61,7 +67,7 @@ module.exports = class StartPlayTestCommand extends Command {
 ${pairs.map((pair, ind) => `Pair ${ind+1}:
 ${this.client.users.find(pair[0]).username}
 ${this.client.users.find(pair[1]).username}`).join('\n')}
-
+${alone == undefined ? '' : '\nPairless player: ' + this.client.users.find(alone).username + '\n'}
 Moving players to voicechannel in 10 seconds.`);/*
         await new Promise(() => setTimeout(() => {
             pairs.forEach((ele, ind) => {
