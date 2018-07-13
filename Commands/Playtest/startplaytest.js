@@ -55,13 +55,11 @@ module.exports = class StartPlayTestCommand extends Command {
 			alone = players[Math.floor(Math.random() * players)];
 			players = this.client.helper.arrayRemove(players, alone);
 		}
-		console.log(Math.floor(players / 2));
-		for (var i = 0; i < Math.floor(players / 2); i++) {
-			var num1 = players[Math.floor(Math.random() * players)];
+		for (var i = 0; i < Math.floor(players.length / 2); i++) {
+			var num1 = players[Math.floor(Math.random() * players.length)];
 			players = this.client.helper.arrayRemove(players, num1);
-			var num2 = players[Math.floor(Math.random() * players)];
+			var num2 = players[Math.floor(Math.random() * players.length)];
 			players = this.client.helper.arrayRemove(players, num2);
-			console.log(num1 + ' ' + num2);
 			pairs.push([num1, num2]);
 		}
 		console.log(pairs);
