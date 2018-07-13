@@ -30,7 +30,7 @@ module.exports = class StartPlayTestCommand extends Command {
     async exec(msg, {
         playtestid
     }) {
-        if (playtestid == "upcoming") playtestid = {
+        /*if (playtestid == "upcoming") playtestid = {
             where: {
                 Finished: false
             },
@@ -52,7 +52,7 @@ module.exports = class StartPlayTestCommand extends Command {
         console.log("asd-1");
         msg.channel.send("Starting playtest.");
         console.log("asd");
-        var pairs = [];
+        /*var pairs = [];
         for (var i = 0; i < Math.floor(players / 2); i++) {
             var num1 = Math.floor(Math.random() * players);
             players = this.client.helper.arrayRemove(players, num1);
@@ -103,7 +103,7 @@ Moving players to voicechannel in 10 seconds.`);
             }
         }).then((res) => {
             res.update(playtest);
-        })
+        })*/
     }
 
     
