@@ -13,6 +13,14 @@ const VC = [
 	'465149863609499658'
 ];
 
+const VCtest = [
+	'467383821231456267',
+	'467383840114081792',
+	'467383854274052096',
+	'467383866089275412',
+	'467383877070225420'
+];
+
 module.exports = class StartPlayTestCommand extends Command {
 	constructor() {
 		super('startplaytest', {
@@ -75,7 +83,7 @@ Moving players to voicechannel in 10 seconds.`);
 		await new Promise((resolve) => setTimeout(() => {
 			pairs.forEach((ele, ind) => {
 				for (var user of ele) {
-					msg.guild.members.get(user).setVoiceChannel(VC[ind]);
+					msg.guild.members.get(user).setVoiceChannel(this.client.test ? VCtest[ind] : VC[ind]);
 				}
 			});
 			resolve();

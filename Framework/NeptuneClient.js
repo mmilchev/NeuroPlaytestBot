@@ -35,6 +35,8 @@ class NeptuneClient extends AkairoClient {
 		});
 		
 		this.players = new SequelizeProvider(this.database.PLAYER);
+
+		this.test = true;
 	}
 
 	async start(auth) {
@@ -46,13 +48,11 @@ class NeptuneClient extends AkairoClient {
 	}
 
 	hasPermission (member) {
-		//return (member.roles.has('465238967663591455'));
-		return true;
+		return (member.roles.has(this.test ? '467384560389324810' : '465238967663591455'));
 	}
 
 	canAttend(member) {
-		//return (member.roles.has('465238967663591455'));
-		return true;
+		return (member.roles.has(this.test ? '467383238579585024' : '465238967663591455') || member.roles.has('467383081519808522'));
 	}
 
 	parseDate(input) {
