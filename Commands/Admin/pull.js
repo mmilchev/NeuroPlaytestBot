@@ -19,6 +19,6 @@ module.exports = class PullCommand extends Command {
 		var {
 			stdout
 		} = await exec('git', ['pull']);
-		msg.reply("Updated. Reply:\n```\n" + stdout + "\n```");
+		msg.reply('Updated. Reply:\n```\n' + stdout + '\n```');
 	}
 };
