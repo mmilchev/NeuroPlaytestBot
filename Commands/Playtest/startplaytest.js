@@ -43,8 +43,8 @@ module.exports = class StartPlayTestCommand extends Command {
                 Finished: false,
                 id: playtestid
             }
-        };
-        var playtest = await this.client.database.PLAYTESTS.findOne(playtestid);
+        };*/
+        var playtest = await this.client.database.PLAYTESTS.findOne();
         var players = Object.assign([], playtest.Attendees);
         /*var ready = await this.readyCheck(msg, playtest);
         console.log("hello?");
