@@ -71,7 +71,7 @@ Moving players to voicechannel in 10 seconds.`);
 		await new Promise(() => setTimeout(() => {
 			pairs.forEach((ele, ind) => {
 				for (var user of ele) {
-					msg.guild.members.get(user).setVoiceChannel(VC[ind]);
+					//msg.guild.members.get(user).setVoiceChannel(VC[ind]);
 				}
 			});
 		}, 10000));
