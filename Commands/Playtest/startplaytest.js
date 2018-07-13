@@ -111,7 +111,7 @@ Moving players to voicechannel in 10 seconds.`);
             let collector = new MessageCollector(msg.channel, mess => toCollect.indexOf(mess.author.id) != -1);
             var waittime = setTimeout(() => collector.stop("timeout"), 300000);
             collector.on('collect', (mess) => {
-                delegateSend(msg.channel, "test");
+                this.delegateSend(msg.channel, "test");
                 toCollect = this.client.helper.arrayRemove(toCollect, mess.author.id);
                 if (toCollect.length == 0) {
                     collector.stop("ready");
@@ -120,7 +120,7 @@ Moving players to voicechannel in 10 seconds.`);
             });
             collector.on('end', (coll, reason) => {
                 if (reason == "ready") {
-                    delegateSend(msg,channel, 'Everyone is ready. Initalizing Groups.');
+                    this.delegateSend(msg,channel, 'Everyone is ready. Initalizing Groups.');
                     resolve(true);
                 }
             })
