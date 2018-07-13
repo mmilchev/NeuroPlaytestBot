@@ -64,7 +64,8 @@ function hasPermission(msg, Command) {
 	var client = true, command = true;
 	var result = true;
 	if(Command.ownerOnly) {
-		return msg.author.id == msg.client.config.ownerID;
+		return msg.client.config.ownerID instanceof Array ? msg.client.config.ownerID.indexOf(msg.author.id) !== -1 :
+		msg.author.id == msg.client.config.ownerID;
 	} else 
 	if(msg.guild) {
 		if(Command.clientPermissions) {
