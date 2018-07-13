@@ -63,9 +63,9 @@ module.exports = class StartPlayTestCommand extends Command {
 			pairs.push([num1, num2]);
 		}
 		msg.channel.send(`Generated player pairs:
-${pairs.map((pair, ind) => `**Pair ${ind+1}**: ${console.log(pair)}
+${pairs.map((pair, ind) => {console.log(pair); return `**Pair ${ind+1}**:
 ${this.client.users.find(pair[0]).username}
-${this.client.users.find(pair[1]).username}`).join('\n')}
+${this.client.users.find(pair[1]).username}`;}).join('\n')}
 ${alone == undefined ? '' : '\nPairless player: ' + this.client.users.find(alone).username + '\n'}
 Moving players to voicechannel in 10 seconds.`);/*
         await new Promise(() => setTimeout(() => {
