@@ -47,23 +47,22 @@ module.exports = class StartPlayTestCommand extends Command {
 		var playtest = await this.client.database.PLAYTESTS.findOne(playtestid);
 		var players = Object.assign([], playtest.Attendees);
 		var ready = await this.readyCheck(msg, playtest);
-		console.log('hello?');
-		if (ready !== true) return msg.reply('Aborting playtest.\n' + ready);
+		if (!ready) return msg.reply('Aborting playtest.');
 		await msg.channel.send('Starting playtest.');
-		/*var pairs = [];
-        for (var i = 0; i < Math.floor(players / 2); i++) {
-            var num1 = Math.floor(Math.random() * players);
-            players = this.client.helper.arrayRemove(players, num1);
-            var num2 = Math.floor(Math.random() * players);
-            players = this.client.helper.arrayRemove(players, num2);
-            pairs.push([num1, num2]);
-        }
-        msg.channel.send(`Generated player pairs:
+		var pairs = [];
+		for (var i = 0; i < Math.floor(players / 2); i++) {
+			var num1 = Math.floor(Math.random() * players);
+			players = this.client.helper.arrayRemove(players, num1);
+			var num2 = Math.floor(Math.random() * players);
+			players = this.client.helper.arrayRemove(players, num2);
+			pairs.push([num1, num2]);
+		}
+		msg.channel.send(`Generated player pairs:
 ${pairs.map((pair, ind) => `Pair ${ind+1}:
 ${this.client.users.find(pair[0]).username}
 ${this.client.users.find(pair[1]).username}`).join('\n')}
 
-Moving players to voicechannel in 10 seconds.`);
+Moving players to voicechannel in 10 seconds.`);/*
         await new Promise(() => setTimeout(() => {
             pairs.forEach((ele, ind) => {
                 for (var user in ele) {
