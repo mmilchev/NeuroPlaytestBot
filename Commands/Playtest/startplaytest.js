@@ -115,8 +115,8 @@ Moving players to voicechannel in 10 seconds.`);
             });
             
             collector.on('end', (coll, reason) => {
-                msg.channel.send("test").then().catch((e) => console.log(e));
-                if (reason == "ready") msg.reply('Everyone is ready. Initalizing Groups.').then(resolve(true));
+                msg.reply('yes');
+                /*if (reason == "ready") msg.reply('Everyone is ready. Initalizing Groups.').then(resolve(true));
                 if (reason == "timeout") {
                     msg.reply(`Users not ready: ${toCollect.map(usr => this.client.users.get(us).username).join(' ')}. Type abort or start to decide.`);
                     collector = new MessageCollector(msg.channel, mess => ['abort', 'start'].indexOf(mess.content.toLowerCase) !== -1 && this.client.ownerID.includes(mess.author.id));
@@ -125,7 +125,7 @@ Moving players to voicechannel in 10 seconds.`);
                         if (mess.content.toLowerCase() = 'start') resolve(true);
                         collector.stop();
                     });
-                }
+                }*/
             });
         });
     }
