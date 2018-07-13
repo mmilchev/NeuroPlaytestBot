@@ -47,7 +47,7 @@ module.exports = class StartPlayTestCommand extends Command {
         var playtest = await this.client.database.PLAYTESTS.findOne(playtestid);
         var players = Object.assign([], playtest.Attendees);
         var ready = await this.readyCheck(msg, playtest);
-        if (!ready) return msg.reply('Aborting playtest.');
+        if (ready !== true) return msg.reply('Aborting playtest.\n' + ready);
         msg.channel.send("Starting playtest.");
         var pairs = [];
         for (var i = 0; i < Math.floor(players / 2); i++) {
@@ -115,21 +115,8 @@ Moving players to voicechannel in 10 seconds.`);
             });
             
             collector.on('end', (coll, reason) => {
-                try {
-                    msg.reply('hello');
-                } catch(e) {
-                    console.log(e);
-                }
                 if (reason == "ready") resolve(true);
-                if (reason == "timeout") {
-                    msg.reply(`Users not ready: ${toCollect.map(usr => this.client.users.get(usr).username).join(' ')}. Type abort or start to decide.`);
-                    collector = new MessageCollector(msg.channel, mess => ['abort', 'start'].indexOf(mess.content.toLowerCase) !== -1 && this.client.ownerID.includes(mess.author.id));
-                    collector.on('collect', (mess) => {
-                        if (mess.content.toLowerCase() = 'abort') resolve(false);
-                        if (mess.content.toLowerCase() = 'start') resolve(true);
-                        collector.stop();
-                    });
-                }
+                if (reason == "timeout") resolve(`Users not ready: ${toCollect.map(usr => this.client.users.get(us).username).join(' ')}.`);
             });
         });
     }
