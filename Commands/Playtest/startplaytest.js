@@ -120,6 +120,7 @@ Moving players to voicechannel in 10 seconds.`);
             });
             collector.on('end', (coll, reason) => {
                 console.log(reason);
+                if (reason == "ready") console.log("This is ready");
                 if (reason == "ready") msg.reply('Everyone is ready. Initalizing Groups.').then(resolve(true)); //hangs here
             })
         })
