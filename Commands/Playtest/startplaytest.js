@@ -121,7 +121,7 @@ Moving players to voicechannel in 10 seconds.`);
             });
             collector.on('end', (coll, reason) => {
                 if (reason == "ready") {
-                    this.delegateSend(msg,channel.id, 'Everyone is ready. Initalizing Groups.');
+                    this.delegateSend(msg.channel.id, 'Everyone is ready. Initalizing Groups.');
                     resolve(true);
                 }
             })
