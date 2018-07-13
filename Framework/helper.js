@@ -1,7 +1,7 @@
 module.exports = {
 	parseUgly: parseUgly,
 	whiteSpace: whiteSpace,
-	arrayRemove: remove,
+	arrayRemove: arrayRemove,
 	isNumeric: isNumeric,
 	escapeRegExp: escapeRegExp,
 	cleanIt: cleanIt,
@@ -111,7 +111,7 @@ function isNumeric(num) {
 	return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
-function remove(arr, thing) {
+function arrayRemove(arr, thing) {
 	if(scontains(arr, thing)) {
 		return arr.slice(0, arr.indexOf(thing)).concat(arr.slice(arr.indexOf(thing) + 1, arr.length));
 	} else {

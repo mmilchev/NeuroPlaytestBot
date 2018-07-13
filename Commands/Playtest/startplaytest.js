@@ -52,9 +52,9 @@ module.exports = class StartPlayTestCommand extends Command {
         var pairs = [];
         for (var i = 0; i < Math.floor(players / 2); i++) {
             var num1 = Math.floor(Math.random() * players);
-            players = this.client.helper.remove(players, num1);
+            players = this.client.helper.arrayRemove(players, num1);
             var num2 = Math.floor(Math.random() * players);
-            players = this.client.helper.remove(players, num2);
+            players = this.client.helper.arrayRemove(players, num2);
             pairs.push([num1, num2]);
         }
         msg.channel.send(`Generated player pairs:
@@ -107,7 +107,7 @@ Moving players to voicechannel in 10 seconds.`);
             var collector = new MessageCollector(msg.channel, mess => toCollect.indexOf(mess.author.id) !== -1);
             var waittime = setTimeout(() => collector.stop("timeout"), 300000);
             collector.on('collect', (mess) => {
-                toCollect = this.client.helper.remove(toCollect, mess.author.id);
+                toCollect = this.client.helper.arrayRemove(toCollect, mess.author.id);
                 if (toCollect.length == 0) {
                     collector.stop("ready");
                     clearTimeout(waittime);
