@@ -41,7 +41,7 @@ module.exports = class HelpCommand extends Command {
 function funcDesc(command) {
 	return `
 **Description**: ${typeof command.description === Array ? command.description.join('\n') : command.description}
-**Usage**: ${command.usage ? `${command.client.config.prefix} ${command.usage}` : command.client.config.prefix + " " + command.args.map(ar => "<" + ar.id + ">").join(' ') + "   (Generated.)"}
+**Usage**: ${command.usage ? `${command.client.config.prefix} ${command.usage}` : command.client.config.prefix + ' ' + command.args.map(ar => '<' + ar.id + '>').join(' ') + '   (Generated.)'}
 **Enabled**: ${command.enabled}
 **Aliases**: \`${command.aliases.join(', ')}\`
 **Category**: \`${command.category}\`
@@ -65,18 +65,18 @@ function hasPermission(msg, Command) {
 	var result = true;
 	if(Command.ownerOnly) {
 		return msg.client.config.ownerID instanceof Array ? msg.client.config.ownerID.indexOf(msg.author.id) !== -1 :
-		msg.author.id == msg.client.config.ownerID;
+			msg.author.id == msg.client.config.ownerID;
 	} else 
 	if(msg.guild) {
 		if(Command.clientPermissions) {
-			if (typeof Command.clientPermissions !== "function") {
+			if (typeof Command.clientPermissions !== 'function') {
 				client = msg.guild.me.hasPermission(Command.clientPermissions);
 			} else {
 				client = Command.clientPermissions(msg);
 			}
 		}
 		if (Command.userPermissions) {
-			if (typeof Command.userPermissions !== "function") {
+			if (typeof Command.userPermissions !== 'function') {
 				command = msg.member.hasPermission(Command.userPermissions);
 			} else {
 				command = Command.userPermissions(msg);

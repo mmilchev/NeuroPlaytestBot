@@ -14,26 +14,26 @@ module.exports = {
 };
 
 function replaceAll (find, replace, str) {
-	var find = find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+	find = find.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 	return str.replace(new RegExp(find, 'g'), replace);
 }
 
 function cleanContent(content, guild) {
 	content.replace(/@everyone/g, '@\u200Beveryone')
-			.replace(/@here/g, '@\u200Bhere')
-			.replace(/<@&[0-9]+>/g, roles => {
-				let replaceID = roles.replace(/<|&|>|@/g, '');
-				let role = guild.roles.get(replaceID);
-				return `${role.name}`;
-			})
-			.replace(/<@!?[0-9]+>/g, user => {
-				let replaceID = user.replace(/<|!|>|@/g, '');
-				let member = guild.members.get(replaceID);
-				if (member) {
+		.replace(/@here/g, '@\u200Bhere')
+		.replace(/<@&[0-9]+>/g, roles => {
+			let replaceID = roles.replace(/<|&|>|@/g, '');
+			let role = guild.roles.get(replaceID);
+			return `${role.name}`;
+		})
+		.replace(/<@!?[0-9]+>/g, user => {
+			let replaceID = user.replace(/<|!|>|@/g, '');
+			let member = guild.members.get(replaceID);
+			if (member) {
 				return `${member.user.username}`;
-				} else {
-				return ` `; }
-			});
+			} else {
+				return ' '; }
+		});
 	return content;
 }
 
@@ -58,11 +58,11 @@ function forHumans(seconds) {
 	var levels = [
 		[Math.floor(seconds / 31536000), 'years'],
 		[Math.floor((seconds % 31536000) / 2592000), 'months'],
-        [Math.floor(((seconds % 31536000) % 2592000) / 604800), 'weeks'],
-        [Math.floor((((seconds % 31536000) % 2592000) % 604800) / 86400), 'days'],
-        [Math.floor((((seconds % 31536000) % 2592000) % 86400) / 3600), 'hours'],
-        [Math.floor(((((seconds % 31536000) % 2592000) % 86400) % 3600) / 60), 'minutes'],
-        [Math.floor(((((seconds % 31536000) % 2592000) % 86400) % 3600) % 60), 'seconds']
+		[Math.floor(((seconds % 31536000) % 2592000) / 604800), 'weeks'],
+		[Math.floor((((seconds % 31536000) % 2592000) % 604800) / 86400), 'days'],
+		[Math.floor((((seconds % 31536000) % 2592000) % 86400) / 3600), 'hours'],
+		[Math.floor(((((seconds % 31536000) % 2592000) % 86400) % 3600) / 60), 'minutes'],
+		[Math.floor(((((seconds % 31536000) % 2592000) % 86400) % 3600) % 60), 'seconds']
 	];
 	var returntext = '';
 
@@ -79,11 +79,11 @@ function forHumansHun(seconds) {
 	var levels = [
 		[Math.floor(seconds / 31536000), 'év'],
 		[Math.floor((seconds % 31536000) / 2592000), 'hónap'],
-        [Math.floor(((seconds % 31536000) % 2592000) / 604800), 'hét'],
-        [Math.floor((((seconds % 31536000) % 2592000) % 604800) / 86400), 'nap'],
-        [Math.floor((((seconds % 31536000) % 2592000) % 86400) / 3600), 'óra'],
-        [Math.floor(((((seconds % 31536000) % 2592000) % 86400) % 3600) / 60), 'perc'],
-        [Math.floor(((((seconds % 31536000) % 2592000) % 86400) % 3600) % 60), 'másodperc']
+		[Math.floor(((seconds % 31536000) % 2592000) / 604800), 'hét'],
+		[Math.floor((((seconds % 31536000) % 2592000) % 604800) / 86400), 'nap'],
+		[Math.floor((((seconds % 31536000) % 2592000) % 86400) / 3600), 'óra'],
+		[Math.floor(((((seconds % 31536000) % 2592000) % 86400) % 3600) / 60), 'perc'],
+		[Math.floor(((((seconds % 31536000) % 2592000) % 86400) % 3600) % 60), 'másodperc']
 	];
 	var returntext = '';
 
@@ -121,7 +121,6 @@ function arrayRemove(arr, thing) {
 
 function whiteSpace(strs) {
 	var maxSize = 0;
-	var strs = strs;
 	strs.forEach((v) => {
 		if(v.length > maxSize) {
 			maxSize = v.length;

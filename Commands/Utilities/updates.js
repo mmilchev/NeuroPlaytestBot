@@ -10,10 +10,10 @@ module.exports = class UpdatesCommand extends Command {
 	}
 
 	async exec(msg) {
-        msg.channel.send({embed: msg.client.util.embed()
-            .setTitle(`Newest Updates`)
-            .setColor(msg.client.config.color)
-            .setTimestamp(new Date())
-            .addField("Details", ``)});
+		msg.channel.send({embed: msg.client.util.embed()
+			.setTitle('Newest Updates')
+			.setColor(msg.client.config.color)
+			.setTimestamp(new Date())
+			.addField('Details', '')});
 	}
 };
