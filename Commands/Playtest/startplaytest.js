@@ -70,7 +70,7 @@ ${alone == undefined ? '' : '\nPairless player: ' + this.client.users.find(alone
 Moving players to voicechannel in 10 seconds.`);
 		await new Promise(() => setTimeout(() => {
 			pairs.forEach((ele, ind) => {
-				for (var user in ele) {
+				for (var user of ele) {
 					msg.guild.members.get(user).setVoiceChannel(VC[ind]);
 				}
 			});
