@@ -62,9 +62,8 @@ module.exports = class StartPlayTestCommand extends Command {
 			players = this.client.helper.arrayRemove(players, num2);
 			pairs.push([num1, num2]);
 		}
-		console.log(pairs);
 		msg.channel.send(`Generated player pairs:
-${pairs.map((pair, ind) => `**Pair ${ind+1}**:
+${pairs.map((pair, ind) => `**Pair ${ind+1}**: ${console.log(pair)}
 ${this.client.users.find(pair[0]).username}
 ${this.client.users.find(pair[1]).username}`).join('\n')}
 ${alone == undefined ? '' : '\nPairless player: ' + this.client.users.find(alone).username + '\n'}
