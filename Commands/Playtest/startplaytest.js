@@ -63,8 +63,8 @@ module.exports = class StartPlayTestCommand extends Command {
 		await msg.channel.send('Starting playtest.');
 		var pairs = [];
 		var alone;
-		if (players % 2 == 1) {
-			alone = players[Math.floor(Math.random() * players)];
+		if (players.length % 2 == 1) {
+			alone = players[Math.floor(Math.random() * players.length)];
 			players = this.client.helper.arrayRemove(players, alone);
 		}
 		for (var i = 0; i < Math.floor(players.length / 2); i++) {
@@ -83,11 +83,12 @@ Moving players to voicechannel in 10 seconds.`);
 		await new Promise((resolve) => setTimeout(() => {
 			pairs.forEach((ele, ind) => {
 				for (var user of ele) {
-					msg.guild.members.get(user).setVoiceChannel(this.client.test ? VCtest[ind] : VC[ind]);
+					//msg.guild.members.get(user).setVoiceChannel(this.client.test ? VCtest[ind] : VC[ind]);
 				}
 			});
 			resolve();
 		}, 10000));
+		/*
 		msg.channel.send('Stage 0 complete. Entering stage 1. Please start searching according to the pair number in ascending order.');
 		playtest.Phase = 1;
 		await new Promise((resolve) => setTimeout(() => {
@@ -122,7 +123,7 @@ Moving players to voicechannel in 10 seconds.`);
 			}
 		}).then((res) => {
 			res.update(playtest);
-		});
+		});*/
 	}
 
 
