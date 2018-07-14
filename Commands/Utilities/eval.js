@@ -25,8 +25,8 @@ module.exports = class EvalCommand extends Command {
 		try {
 			var start = new Date();
 			var ev = eval(code);
-			if (code.then == 'function') ev = await ev;
-			if (typeof ev !== 'string') ev = util.inspect(ev, 0);
+			if (ev != null && typeof ev.then === 'function') ev = await ev;
+			if (typeof ev !== 'string') ev = util.inspect(ev, {depth: 0});
 			var took = new Date() - start;
 			var result = ev.replace(tokenRegex, '[TOKEN]');
 			return msg.reply(`**Code:**
@@ -46,7 +46,7 @@ Took: ${took} ms.
 			const tokenRegex = new RegExp(`${token}|${rev}`, 'g');
 			e = e.replace(tokenRegex, '[TOKEN]');
 			return msg.reply(`**Code:**
-\`\`|\`
+\`\`\`
 ${code}
 \`\`\`
 **Error:**
