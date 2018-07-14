@@ -25,7 +25,7 @@ module.exports = class EvalCommand extends Command {
 		try {
 			var start = new Date();
 			var ev = eval(code);
-			if (typeof ev == 'Promise') ev = await ev;
+			if (code.then === 'function') ev = await ev;
 			if (typeof ev !== 'string') ev = util.inspect(ev, 0);
 			var took = new Date() - start;
 			var result = ev.replace(tokenRegex, '[TOKEN]');
