@@ -1,7 +1,7 @@
 const {	Command } = require('discord-akairo');
 const util = require('util');
 
-class EvalCommand extends Command {
+module.exports = class EvalCommand extends Command {
 	constructor() {
 		super('eval', {
 			aliases: ['eval', '%'],
@@ -25,11 +25,12 @@ class EvalCommand extends Command {
 		try {
 			var start = new Date();
 			var ev = eval(code);
+			if (ev != null && typeof ev.then === 'function') ev = await ev;
+			if (typeof ev !== 'string') ev = util.inspect(ev, {depth: 0});
 			var took = new Date() - start;
 			var result = ev.replace(tokenRegex, '[TOKEN]');
-			if (typeof result !== 'string') result = util.inspect(result, 0);
 			return msg.reply(`**Code:**
-\`\`|\`
+\`\`\`
 ${code}
 \`\`\`
 **Result:**
@@ -45,7 +46,7 @@ Took: ${took} ms.
 			const tokenRegex = new RegExp(`${token}|${rev}`, 'g');
 			e = e.replace(tokenRegex, '[TOKEN]');
 			return msg.reply(`**Code:**
-\`\`|\`
+\`\`\`
 ${code}
 \`\`\`
 **Error:**
