@@ -68,17 +68,14 @@ module.exports = class StartPlayTestCommand extends Command {
 			alone = players[Math.floor(Math.random() * players.length)];
 			players = this.client.helper.arrayRemove(players, alone);
 		}
-		console.log(Math.floor(players.length / 2));
-		console.log(players);
-		for (var i = 0; i < Math.floor(players.length / 2); i++) {
+		var playerCount = Math.floor(players.length / 2);
+		for (var i = 0; i < playerCount; i++) {
 			var num1 = players[Math.floor(Math.random() * players.length)];
 			players = this.client.helper.arrayRemove(players, num1);
 			var num2 = players[Math.floor(Math.random() * players.length)];
 			players = this.client.helper.arrayRemove(players, num2);
 			pairs.push([num1, num2]);
-			console.log("hello?" + i);
 		}
-		console.log(pairs);
 		msg.channel.send(`Generated player pairs:
 ${pairs.map((pair, ind) => `**Pair ${ind+1}**:
 ${this.client.users.get(pair[0]).username}
