@@ -58,10 +58,9 @@ module.exports = class StartPlayTestCommand extends Command {
 		};
 		var playtest = await this.client.database.PLAYTESTS.findOne(playtestid);
 		var players = Object.assign([], playtest.Attendees);
-		/*var ready = await this.readyCheck(msg, playtest);
+		var ready = await this.readyCheck(msg, playtest);
 		if (!ready) return msg.reply('Aborting playtest.');
-		await msg.channel.send('Starting playtest.');*/
-		for (const user of players) await this.client.fetchUser(user);
+		await msg.channel.send('Starting playtest.');
 		var pairs = [];
 		var alone;
 		if (players.length % 2 == 1) {
@@ -81,16 +80,15 @@ ${pairs.map((pair, ind) => `**Pair ${ind+1}**:
 ${this.client.users.get(pair[0]).username}
 ${this.client.users.get(pair[1]).username}`).join('\n')}
 ${alone == undefined ? '' : '\nPairless player: ' + this.client.users.find(alone).username + '\n'}
-Moving players to voicechannel in 10 seconds.`);
+Moving players to voicechannel in 30 seconds.`);
 		await new Promise((resolve) => setTimeout(() => {
 			pairs.forEach((ele, ind) => {
 				for (var user of ele) {
-					//msg.guild.members.get(user).setVoiceChannel(this.client.test ? VCtest[ind] : VC[ind]);
+					msg.guild.members.get(user).setVoiceChannel(this.client.test ? VCtest[ind] : VC[ind]);
 				}
 			});
 			resolve();
-		}, 10000));
-		/*
+		}, 30000));
 		msg.channel.send('Stage 0 complete. Entering stage 1. Please start searching according to the pair number in ascending order.');
 		playtest.Phase = 1;
 		await new Promise((resolve) => setTimeout(() => {
@@ -125,7 +123,7 @@ Moving players to voicechannel in 10 seconds.`);
 			}
 		}).then((res) => {
 			res.update(playtest);
-		});*/
+		});
 	}
 
 
