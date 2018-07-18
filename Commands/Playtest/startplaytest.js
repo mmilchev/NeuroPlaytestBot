@@ -61,7 +61,7 @@ module.exports = class StartPlayTestCommand extends Command {
 		/*var ready = await this.readyCheck(msg, playtest);
 		if (!ready) return msg.reply('Aborting playtest.');
 		await msg.channel.send('Starting playtest.');*/
-		for (const user of players) await this.client.fetchUser(user.userID);
+		for (const user of players) await this.client.fetchUser(user);
 		var pairs = [];
 		var alone;
 		if (players.length % 2 == 1) {
