@@ -47,7 +47,7 @@ module.exports = class StartPlayTestCommand extends Command {
 				Finished: false
 			},
 			order: [
-				['When', 'ASC']
+				['When', 'DESC']
 			]
 		};
 		else playtestid = {
