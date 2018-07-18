@@ -76,6 +76,7 @@ module.exports = class StartPlayTestCommand extends Command {
 			var num2 = players[Math.floor(Math.random() * players.length)];
 			players = this.client.helper.arrayRemove(players, num2);
 			pairs.push([num1, num2]);
+			console.log("hello?" + i);
 		}
 		console.log(pairs);
 		msg.channel.send(`Generated player pairs:
