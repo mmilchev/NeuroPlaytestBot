@@ -28,7 +28,7 @@ module.exports = class AttendCommand extends Command {
 		this.client.database.PLAYTESTS.findOne(playtestid).then((ele) => {
 			var players = ele.Attendees;
 			if (ele.Attendees.indexOf(msg.author.id) !== -1) {
-				this.client.helper.arrayRemove(players, msg.author.id);
+				var players = this.client.helper.arrayRemove(players, msg.author.id);
 			} else {
 				players.push(msg.author.id);
 			}
