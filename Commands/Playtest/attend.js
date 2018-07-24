@@ -23,19 +23,22 @@ module.exports = class AttendCommand extends Command {
 	}
 
 	exec(msg, {playtestid}) {
-		if (playtestid == 'upcoming') playtestid = {where: {Finished: false },order: [['When', 'ASC']]};
+		if (playtestid == 'upcoming') playtestid = {where: {Finished: false },order: [['When', 'DESC']]};
 		else playtestid = {where: {Finished: false, id: playtestid }};
 		this.client.database.PLAYTESTS.findOne(playtestid).then((ele) => {
-			if (ele.Attendees.indexOf(msg.author.id) !== -1) msg.reply('You are already attending the playtest.');
 			var players = ele.Attendees;
-			players.push(msg.author.id);
+			if (ele.Attendees.indexOf(msg.author.id) !== -1) {
+				var players = this.client.helper.arrayRemove(players, msg.author.id);
+			} else {
+				players.push(msg.author.id);
+			}
 			ele.update({
 				Attendees: players
 			}).then(() => {
-				msg.reply(`You successfully marked yourself as attending for the upcoming playtest.
+				msg.reply(players.indexOf(msg.author.id) !== -1 ? `You successfully marked yourself as attending for the upcoming playtest.
 The playtest will be at **${ele.When.toString()}**
 Approximately in **${this.client.helper.forHumans((ele.When - new Date()) / 1000)}**
-`);
+`: `You are no longer attending the playtest ID:**${ele.id}**`);
 			});
 		});
 	}
