@@ -9,7 +9,7 @@ class NeptuneClient extends AkairoClient {
 			prefix: config.prefix,
 			allowMention: true,
 			commandDirectory: config.commandDirectory,
-			inhibitorDirectory: config.inhibitorDirectory,
+		//	inhibitorDirectory: config.inhibitorDirectory,
 			listenerDirectory: config.listenerDirectory,
 			disableEveryone: true,
 			automateCategories: true,
