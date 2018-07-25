@@ -2,7 +2,7 @@ const {
 	Command
 } = require('discord-akairo');
 const {
-	MessageCollector
+	MessageCollector, ReactionCollector
 } = require('discord.js');
 
 const VC = [
@@ -130,14 +130,14 @@ Moving players to voicechannel in 30 seconds.`);
 	readyCheck(msg, playtest) {
 		return new Promise(async resolve => {
 			msg.channel.send(`Playtest ${playtest.id} has been started. Performing ready-check.`);
-			var tocheck = await msg.channel.send(`Please send a message in the channel, so you are marked as ready. You have 5 minutes to check in. ${playtest.Attendees.map((e) => `<@!${e}>`).join(' ')}`);
+			var tocheck = await msg.channel.send(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. ${playtest.Attendees.map((e) => `<@!${e}>`).join(' ')}`);
+			tocheck.react('🤔');
 			var toCollect = playtest.Attendees;
-			var collector = new MessageCollector(msg.channel, mess => toCollect.indexOf(mess.author.id) !== -1);
+			var collector = new ReactionCollector(msg.tocheck);
 			var waittime = setTimeout(() => collector.stop('timeout'), 300000);
-			collector.on('collect', (mess) => {
-				toCollect = this.client.helper.arrayRemove(toCollect, mess.author.id);
-				tocheck.edit(`Please send a message in the channel, so you are marked as ready. You have 5 minutes to check in. ${toCollect.map((e) => `<@!${e}>`).join(' ')}`)
-				if (toCollect.length == 0) {
+			collector.on('collect', (react) => {
+				tocheck.edit(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. ${toCollect.filter((e) => react.find((g) => g == e) == undefined).map((e) => `<@!${e}>`).join(' ')}`)
+				if (toCollect.filter((e) => react.find((g) => g == e) == undefined).size == 0) {
 					collector.stop('ready');
 					clearTimeout(waittime);
 				}
@@ -146,7 +146,7 @@ Moving players to voicechannel in 30 seconds.`);
 			collector.on('end', (coll, reason) => {
 				if (reason == 'ready') msg.reply('Everyone is ready. Initalizing Groups.').then(resolve(true));
 				if (reason == 'timeout') {
-					msg.reply(`Users not ready: ${toCollect.map(usr => this.client.users.get(usr).username).join(' ')}. Type abort or start to decide.`);
+					msg.reply(`Users not ready are listed in the previous message. Type abort or start to decide.`);
 					collector = new MessageCollector(msg.channel, mess => ['abort', 'start'].indexOf(mess.content.toLowerCase()) !== -1 && this.client.ownerID.includes(mess.author.id));
 					collector.on('collect', (mess) => {
 						if (mess.content.toLowerCase() == 'abort') resolve(false);
