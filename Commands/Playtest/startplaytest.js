@@ -130,14 +130,15 @@ Moving players to voicechannel in 30 seconds.`);
 	readyCheck(msg, playtest) {
 		return new Promise(async resolve => {
 			msg.channel.send(`Playtest ${playtest.id} has been started. Performing ready-check.`);
-			var tocheck = await msg.channel.send(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. ${playtest.Attendees.map((e) => `<!${e}>`).join(' ')}`);
+			var tocheck = await msg.channel.send(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. ${playtest.Attendees.map((e) => `<@!${e}>`).join(' ')}`);
 			await tocheck.react('🤔');
 			var toCollect = playtest.Attendees;
 			var collector = new ReactionCollector(tocheck, () => true);
 			var waittime = setTimeout(() => collector.stop('timeout'), 300000);
-			collector.on('collect', (react) => {
-				tocheck.edit(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. ${toCollect.filter((e) => react.find((g) => g == e) == undefined).map((e) => `<!${e}>`).join(' ')}`)
-				if (toCollect.filter((e) => react.find((g) => g == e) == undefined).size == 0) {
+			collector.on('collect', (react, user) => {
+				tocheck.edit(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. ${toCollect.map((e) => `<@!${e}>`).join(' ')}`)
+				toCollect = this.client.helper.arrayRemove(toCollect, user.id);
+				if (toCollect.length == 0) {
 					collector.stop('ready');
 					clearTimeout(waittime);
 				}
