@@ -2,7 +2,7 @@ const {
 	Command
 } = require('discord-akairo');
 const {
-	MessageCollector
+	MessageCollector, ReactionCollector
 } = require('discord.js');
 
 const VC = [
