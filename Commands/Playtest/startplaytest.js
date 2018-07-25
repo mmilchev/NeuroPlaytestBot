@@ -135,8 +135,8 @@ Moving players to voicechannel in 30 seconds.`);
 			var toCollect = playtest.Attendees;
 			var collector = new ReactionCollector(tocheck);
 			var waittime = setTimeout(() => collector.stop('timeout'), 300000);
+			console.log("asd");
 			collector.on('collect', (react) => {
-				console.log("asd");
 				tocheck.edit(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. ${toCollect.filter((e) => react.find((g) => g == e) == undefined).map((e) => `<!${e}>`).join(' ')}`)
 				if (toCollect.filter((e) => react.find((g) => g == e) == undefined).size == 0) {
 					collector.stop('ready');
