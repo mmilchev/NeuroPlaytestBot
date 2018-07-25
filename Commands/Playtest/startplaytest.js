@@ -131,7 +131,7 @@ Moving players to voicechannel in 30 seconds.`);
 		return new Promise(async resolve => {
 			msg.channel.send(`Playtest ${playtest.id} has been started. Performing ready-check.`);
 			var tocheck = await msg.channel.send(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. ${playtest.Attendees.map((e) => `<@!${e}>`).join(' ')}`);
-			tocheck.react('🤔');
+			await tocheck.react('🤔');
 			var toCollect = playtest.Attendees;
 			var collector = new ReactionCollector(tocheck);
 			var waittime = setTimeout(() => collector.stop('timeout'), 300000);
