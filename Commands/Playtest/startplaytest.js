@@ -146,7 +146,7 @@ Moving players to voicechannel in 30 seconds.`);
 				if (reason == 'ready') msg.reply('Everyone is ready. Initalizing Groups.').then(resolve(true));
 				if (reason == 'timeout') {
 					msg.reply(`Users not ready: ${toCollect.map(usr => this.client.users.get(usr).username).join(' ')}. Type abort or start to decide.`);
-					collector = new MessageCollector(msg.channel, mess => ['abort', 'start'].indexOf(mess.content.toLowerCase) !== -1 && this.client.ownerID.includes(mess.author.id));
+					collector = new MessageCollector(msg.channel, mess => ['abort', 'start'].indexOf(mess.content.toLowerCase()) !== -1 && this.client.ownerID.includes(mess.author.id));
 					collector.on('collect', (mess) => {
 						if (mess.content.toLowerCase() == 'abort') resolve(false);
 						if (mess.content.toLowerCase() == 'start') resolve(true);
