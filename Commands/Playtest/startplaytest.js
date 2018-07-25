@@ -133,7 +133,7 @@ Moving players to voicechannel in 30 seconds.`);
 			var tocheck = await msg.channel.send(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. ${playtest.Attendees.map((e) => `<@!${e}>`).join(' ')}`);
 			tocheck.react('🤔');
 			var toCollect = playtest.Attendees;
-			var collector = new ReactionCollector(msg.tocheck);
+			var collector = new ReactionCollector(tocheck);
 			var waittime = setTimeout(() => collector.stop('timeout'), 300000);
 			collector.on('collect', (react) => {
 				tocheck.edit(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. ${toCollect.filter((e) => react.find((g) => g == e) == undefined).map((e) => `<@!${e}>`).join(' ')}`)
