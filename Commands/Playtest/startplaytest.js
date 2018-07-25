@@ -122,7 +122,7 @@ Moving players to voicechannel in 30 seconds.`);
 				id: playtest.id
 			}
 		}).then((res) => {
-			res.update(playtest);
+			res.updateAttributes(playtest);
 		});
 	}
 

@@ -16,7 +16,7 @@ module.exports = class LPTCommand extends Command {
 	}
 
 	exec(msg, {finished}) {
-		this.client.database.PLAYTESTS.findAll({where: {Finished: finished },order: [['When', 'DESC']]}).then((ele) => {
+		this.client.database.PLAYTESTS.findAll({where: {Finished: finished, When: {$gt: new Date()} },order: [['When', 'DESC']]}).then((ele) => {
 			msg.reply({
 				embed: msg.client.util.embed()
 					.setTitle(finished? 'List of all (upcoming and past) playtests' : 'List of upcoming playtests')
