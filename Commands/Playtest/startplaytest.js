@@ -127,13 +127,13 @@ Moving players to voicechannel in 30 seconds.`);
 				}
 			}
 		];
-		msg.client.playtestStage = 0;
+		/*msg.client.playtestStage = 0;
 		var execFunction = () =>
 		var idontknowhowtonamethisvariablesoitjustbeareallylongonewhatcouldgowrongreally = true;
 		do {
 			var 
 
-		} while (idontknowhowtonamethisvariablesoitjustbeareallylongonewhatcouldgowrongreally);
+		} while (idontknowhowtonamethisvariablesoitjustbeareallylongonewhatcouldgowrongreally);*/
 		
 
 	}
