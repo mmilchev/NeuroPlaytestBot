@@ -18,7 +18,7 @@ module.exports = class RemindCommand extends Command {
     async exec (msg, {time, what}) {
         switch(time) {
             case "list":
-                var reminds = await msg.client.database.REMINDS.findAll({where: {Who: msg.author.id}, order: [{'When': 'ASC'}]});
+                var reminds = await msg.client.database.REMINDS.findAll({where: {Who: msg.author.id}, order: [['When', 'ASC']]});
                 msg.author.send(`**Your reminders:**\n\n${reminds.map((rem) => `[${rem.id}] - Reminding at **${new Date(rem.When).toString()}** of \`${rem.What}\` in channel **${msg.client.channels.get(rem.Where).name}**/**${msg.client.channels.get(rem.Where).guild.name}**`).join('\n')}`);
                 msg.reply("Sent your reminders in DM.");
                 break;
