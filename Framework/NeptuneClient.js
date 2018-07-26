@@ -42,7 +42,7 @@ class NeptuneClient extends AkairoClient {
 	async start(auth) {
 		this.build();
 		this.settings.init();
-		this.remind.init(this);
+		this.remind.setup(this);
 		await this.login(auth);
 		this.bus.addFunction(this.remind.checkReminds, false, 'Reminds');
 		this.bus.loop = setInterval(this.bus.execFunctions, 5000);
