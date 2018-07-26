@@ -14,7 +14,7 @@ module.exports = class RemindmeCommand extends Command {
     }
     
     async exec(msg, {playtestid}) {
-        if (playtestid == "upcoming") var query = {order: [{'When': 'DESC'}], where: {Finished: false}};
+        if (playtestid == "upcoming") var query = {where: {Finished: false },order: [['When', 'DESC']]};
         else var query = {where: {id: parseInt(playtestid)}}
         var playtest = await msg.client.database.PLAYTESTS.findOne(query);
         this.client.database.REMINDS.create({
