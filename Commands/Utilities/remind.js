@@ -1,4 +1,5 @@
 const { Command } = require('discord-akairo');
+const moment = require('moment');
 
 module.exports = class RemindCommand extends Command {
 	constructor() {
