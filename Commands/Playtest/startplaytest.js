@@ -89,41 +89,53 @@ Moving players to voicechannel in 30 seconds.`);
 			});
 			resolve();
 		}, 30000));
-		msg.channel.send('Stage 0 complete. Entering stage 1. Please start searching according to the pair number in ascending order.');
-		playtest.Phase = 1;
-		await new Promise((resolve) => setTimeout(() => {
-			msg.channel.send('5 minutes remaining of Phase 1.');
-			resolve();
-		}, 2100000));
-		await new Promise((resolve) => setTimeout(() => {
-			players = Object.assign([], playtest.Attendees);
-			msg.channel.send('This marks the end of Phase 1. Now entering Phase 2.');
-			resolve();
-			playtest.Phase = 2;
-		}, 300000));
-		await new Promise((resolve) => setTimeout(() => {
-			msg.channel.send('5 minutes remaining of Phase 2.');
-			resolve();
-		}, 900000));
-		await new Promise((resolve) => setTimeout(() => {
-			msg.channel.send('This marks the end of Phase 2. Please everyone join a common channel to discuss today\'s playtest.');
-			resolve();
-			playtest.Phase = 3;
-		}, 300000));
-		await new Promise((resolve) => setTimeout(() => {
-			msg.channel.send('And that marks today\'s playtest. Thank you for attending and have a nice day!');
-			playtest.Phase = 4;
-			playtest.Finished = true;
-			playtest.Pairs = JSON.stringify(pairs.map((ele) => ele.map((usr) => this.client.users.get(usr).username)));
-			resolve();
-		}, 600000));
-		this.client.database.PLAYTESTS.findOne({
-			where: {
-				id: playtest.id
+		var stages = [
+			{
+				text: 'Stage 0 complete. Entering stage 1. Please start searching according to the pair number in ascending order.',
+				timeout: 2100000
+			},
+			{
+				text: '5 minutes remaining of Phase 1.',
+				timeout: 300000
+			},
+			{
+				text: 'This marks the end of Phase 1. Now entering Phase 2.',
+				function: () => players = Object.assign([], playtest.Attendees),
+				timeout: 900000
+			},
+			{
+				text: '5 minutes remaining of Phase 2.',
+				timeout: 300000
+			},
+			{
+				text: 'This marks the end of Phase 2. Please everyone join a common channel to discuss today\'s playtest.',
+				timeout: 600000
+			}, {
+				end: true,
+				text: 'And that marks today\'s playtest. Thank you for attending and have a nice day!',
+				function: () => {
+					playtest.Phase = 4;
+					playtest.Finished = true;
+					playtest.Pairs = JSON.stringify(pairs.map((ele) => ele.map((usr) => this.client.users.get(usr).username)));
+					this.client.database.PLAYTESTS.findOne({
+						where: {
+							id: playtest.id
+						}
+					}).then((res) => {
+						res.updateAttributes(playtest);
+					});
+				}
 			}
-		}).then((res) => {
-			res.updateAttributes(playtest);
-		});
+		];
+		msg.client.playtestStage = 0;
+		var execFunction = () =>
+		var idontknowhowtonamethisvariablesoitjustbeareallylongonewhatcouldgowrongreally = true;
+		do {
+			var 
+
+		} while (idontknowhowtonamethisvariablesoitjustbeareallylongonewhatcouldgowrongreally);
+		
+
 	}
 
 

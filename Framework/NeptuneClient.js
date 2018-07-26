@@ -42,8 +42,9 @@ class NeptuneClient extends AkairoClient {
 	async start(auth) {
 		this.build();
 		this.settings.init();
+		this.remind.init(this);
 		await this.login(auth);
-		//this.bus.addFunction(this.remind.checkReminds, false, 'Reminds');
+		this.bus.addFunction(this.remind.checkReminds, false, 'Reminds');
 		this.bus.loop = setInterval(this.bus.execFunctions, 5000);
 	}
 
@@ -58,10 +59,10 @@ class NeptuneClient extends AkairoClient {
 	parseDate(input) {
 		var parsedTime = moment(input);
 		if (parsedTime.isValid()) return parsedTime;
-		parsedTime = moment(new Date(this.helper.parseUgly(input).absolute));
-		if (parsedTime.isValid()) return parsedTime;
 		parsedTime = chrono.parseDate(input);
 		if (parsedTime !== null) return parsedTime;
+		parsedTime = moment(this.helper.parseUgly(input).absolute);
+		if (parsedTime.isValid()) return parsedTime;
 		return false;
 	}
 }

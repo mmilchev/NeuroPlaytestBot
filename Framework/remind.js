@@ -1,5 +1,3 @@
-/* TODO: Rework
-
 let client;
 
 function setup(cli) {
@@ -7,21 +5,21 @@ function setup(cli) {
 }
 
 function checkReminds() {
-	client.sqbika.REMINDS.sync().then(() => {
-		client.sqbika.REMINDS.findAll().then(res => res.forEach((elem, ind) => {
+	client.database.REMINDS.sync().then(() => {
+		client.database.REMINDS.findAll().then(res => res.forEach((elem, ind) => {
 			if (elem.When - new Date() < 0) {
-				client.channels.get(elem.Where).sendMessage("Whoops, I forgot to bring this pudding to you <@!" + elem.Who + ">! Sorry!\n I was late of *" + client.sqbika.helper.forHumans((Date.now() - elem.When) / 1000) + "*\nReminding you of \`" + elem.What + "\`");
-				client.sqbika.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
+				client.channels.get(elem.Where).sendMessage("I'm sorry, I forgot to remind you <@!" + elem.Who + ">!\n I was late of *" + client.helper.forHumans((Date.now() - elem.When) / 1000) + "*\nReminding you of \`" + elem.What + "\`");
+				client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
 			} else if (elem.When - new Date() < 5000) {
 				setTimeout(function() { remind(client, elem.What, elem.Where, elem.Who) }, (elem.When - new Date()));
-				client.sqbika.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
+				client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
 			} 
 		}));
 	});
 }
 
 function remind(client, what, where, who) {
-	client.channels.get(where).sendMessage("**Brought your pudding <@!" + who + ">!**\nIt has something written on it:\n\`\`\`\n" + what + "\n\`\`\`");
+	client.channels.get(where).sendMessage("**Reminder** <@!" + who + ">!**\nThe message you want to be reminded of:\n\`\`\`\n" + what + "\n\`\`\`");
 }
 
-module.exports = {checkReminds, setup, remind };*/
+module.exports = {checkReminds, setup, remind };
