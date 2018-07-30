@@ -11,7 +11,7 @@ module.exports = class RemindCommand extends Command {
 			}, {
                 id: 'what',
                 default: 'Placeholder',
-                match: 'content'
+                match: 'rest'
             }]
 		});
     }
