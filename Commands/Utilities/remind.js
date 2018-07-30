@@ -24,7 +24,11 @@ module.exports = class RemindCommand extends Command {
                 msg.reply("Sent your reminders in DM.");
                 break;
             case "delete":
-                //TODO
+                var remind = await msg.client.database.REMINDS.findOne({where: {id: what, Who: msg.author.id}});
+                if (remind == null)
+                    return msg.reply("No remind with ID " + what);
+                remind.destroy();
+                msg.reply("Deleted remind with ID " + what);
                 break;
             default:
                 time = msg.client.parseDate(time);
