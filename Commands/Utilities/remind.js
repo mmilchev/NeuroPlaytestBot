@@ -10,7 +10,8 @@ module.exports = class RemindCommand extends Command {
 				id: 'time' //%remind list/delete/etc
 			}, {
                 id: 'what',
-                default: 'Placeholder'
+                default: 'Placeholder',
+                match: 'content'
             }]
 		});
     }
@@ -33,7 +34,7 @@ module.exports = class RemindCommand extends Command {
                 }
                 time = moment(time);
                 msg.reply(`I'm going to remind you in **${time.fromNow()}** about \`${what}\``);
-                if (time.valueOf() - new Date() > 60000) {
+                if (time.valueOf() - new Date() < 60000) {
                     setTimeout(() => msg.client.remind.remind(this.client, what, msg.channel.id, msg.author.id));
                 } else {
                     msg.client.database.REMINDS.create({
