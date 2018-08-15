@@ -38,7 +38,7 @@ module.exports = class AttendCommand extends Command {
 				msg.reply(players.indexOf(msg.author.id) !== -1 ? `You successfully marked yourself as attending for the upcoming playtest.
 The playtest will be at **${ele.When.toString()}**
 Approximately in **${this.client.helper.forHumans((ele.When - new Date()) / 1000)}**
-You weill be notified of the playtest 30 minutes before it.
+You can type \`%remindme\` to be notified of the playtest 30 minutes before it.
 `: `You are no longer attending the playtest ID:**${ele.id}**`);
 			});
 		});

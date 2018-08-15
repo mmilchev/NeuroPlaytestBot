@@ -29,8 +29,7 @@ let PLAYTESTS = database.db.define('playtests', {
 	Started: { type: Sequelize.BOOLEAN },
 	Stage: { type: Sequelize.INTEGER },
 	Channel: { type: Sequelize.BIGINT },
-	Pairs: { type: Sequelize.JSONB },
-	RemindID: { type: Sequelize.INTEGER }
+	Pairs: { type: Sequelize.JSONB }
 });
 
 
