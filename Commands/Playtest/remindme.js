@@ -13,7 +13,7 @@ module.exports = class RemindmeCommand extends Command {
 		});
     }
     
-    async exec(msg, {playtestid}) {
+    async exec(msg, {playtestid}) { /*
         if (playtestid == "upcoming") var query = {where: {Finished: false },order: [['When', 'DESC']]};
         else var query = {where: {id: parseInt(playtestid)}}
         var playtest = await msg.client.database.PLAYTESTS.findOne(query);
@@ -23,6 +23,6 @@ module.exports = class RemindmeCommand extends Command {
             What: `Playtest ${playtest.id} is about to begin in 30 minutes!`,
             Who: msg.author.id
         });
-        msg.reply("You are going to be notified in 30 minutes before the playtest.");
+        msg.reply("You are going to be notified in 30 minutes before the playtest.");*/
     }
 }
