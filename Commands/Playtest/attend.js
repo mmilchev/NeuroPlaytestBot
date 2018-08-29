@@ -23,9 +23,12 @@ module.exports = class AttendCommand extends Command {
 	}
 
 	exec(msg, {playtestid}) {
-		if (playtestid == 'upcoming') playtestid = {where: {Finished: false },order: [['When', 'DESC']]};
+		if (playtestid == 'upcoming') playtestid = {where: {Finished: false, When: {$gt: new Date()}},order: [['When', 'DESC']]};
 		else playtestid = {where: {Finished: false, id: playtestid }};
 		this.client.database.PLAYTESTS.findOne(playtestid).then((ele) => {
+			if (ele == null) {
+				msg.reply("Could not find any upcoming playtests.");
+			}
 			var players = ele.Attendees;
 			if (ele.Attendees.indexOf(msg.author.id) !== -1) {
 				var players = this.client.helper.arrayRemove(players, msg.author.id);
@@ -38,7 +41,15 @@ module.exports = class AttendCommand extends Command {
 				msg.reply(players.indexOf(msg.author.id) !== -1 ? `You successfully marked yourself as attending for the upcoming playtest.
 The playtest will be at **${ele.When.toString()}**
 Approximately in **${this.client.helper.forHumans((ele.When - new Date()) / 1000)}**
-You weill be notified of the playtest 30 minutes before it.
+<<<<<<< HEAD
+<<<<<<< HEAD
+You will be notified of the playtest 30 minutes before it.
+=======
+You can type \`%remindme\` to be notified of the playtest 30 minutes before it.
+>>>>>>> 0d269bdaa3b82a7dbbae2202d0f09175c57aa702
+=======
+You can type \`%remindme\` to be notified of the playtest 30 minutes before it.
+>>>>>>> 0d269bdaa3b82a7dbbae2202d0f09175c57aa702
 `: `You are no longer attending the playtest ID:**${ele.id}**`);
 			});
 		});
