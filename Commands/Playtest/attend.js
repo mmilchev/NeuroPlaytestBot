@@ -43,7 +43,11 @@ The playtest will be at **${ele.When.toString()}**
 Approximately in **${this.client.helper.forHumans((ele.When - new Date()) / 1000)}**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 You will be notified of the playtest 30 minutes before it.
+=======
+You can type \`%remindme\` to be notified of the playtest 30 minutes before it.
+>>>>>>> 0d269bdaa3b82a7dbbae2202d0f09175c57aa702
 =======
 You can type \`%remindme\` to be notified of the playtest 30 minutes before it.
 >>>>>>> 0d269bdaa3b82a7dbbae2202d0f09175c57aa702
