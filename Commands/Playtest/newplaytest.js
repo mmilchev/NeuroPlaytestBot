@@ -31,7 +31,7 @@ module.exports = class NPTCommand extends Command {
 		if (!date) return msg.reply('Couldn\'t parse date format.');
 		var remind = this.client.database.REMINDS.create({
 			Where: msg.channel.id,
-            		When: playtest.When - 1800000,
+            		When: date - 1800000,
             		What: `[PT]`,
             		Who: msg.author.id
 		});
