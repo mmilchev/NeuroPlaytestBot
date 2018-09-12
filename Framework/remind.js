@@ -7,7 +7,7 @@ function setup(cli) {
 function checkReminds() {
 	client.database.REMINDS.sync().then(() => {
 		client.database.REMINDS.findAll().then(res => res.forEach((elem, ind) => {
-			if (elem.What.startsWith('[PT]') && elem.When - new Date() < 0) {
+			if (elem.What.startsWith('[PT]') && elem.When - new Date() < 6000) {
 				client.database.PLAYTESTS.findOne({where: {Finished: false },order: [['When', 'DESC']]}).then(res => {
 					return client.channels.get(elem.Where).send(`Playtest is about to begin!\n${res.Attendees.map(e => `<@!${e}>`).join(' ')}`);
 				})
