@@ -10,6 +10,7 @@ function checkReminds() {
 			if (elem.What.startsWith('[PT]') && elem.When - new Date() < 6000) {
 				client.database.PLAYTESTS.findOne({where: {Finished: false },order: [['When', 'DESC']]}).then(res => {
 					return client.channels.get(elem.Where).send(`Playtest is about to begin!\n${res.Attendees.map(e => `<@!${e}>`).join(' ')}`);
+					client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
 				})
 			} else
 			if (elem.When - new Date() < 0) {
