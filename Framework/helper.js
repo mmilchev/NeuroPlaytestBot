@@ -13,11 +13,24 @@ module.exports = {
 	forHumansHun: forHumansHun
 };
 
+/**
+ * Replace "find" with "replace" in "str"
+ * @param {string/RegExp} find A string to find 
+ * @param {string} replace A string to replace find with
+ * @param {string} str The string to replace in
+ * @returns {string} The replaced string
+ */
 function replaceAll (find, replace, str) {
 	find = find.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 	return str.replace(new RegExp(find, 'g'), replace);
 }
 
+/**
+ * Cleans Discord markup from dirty to clean
+ * @param {string} content A string to clean
+ * @param {Discord.JS Guild} guild A guild object
+ * @returns {string} The cleaned "content"
+ */
 function cleanContent(content, guild) {
 	content.replace(/@everyone/g, '@\u200Beveryone')
 		.replace(/@here/g, '@\u200Bhere')
@@ -39,20 +52,31 @@ function cleanContent(content, guild) {
 
 var data = ['B', 'KB', 'MB', 'GB', 'TB'];
 
+/**
+ * Gets the maximum level of data level (1024 KB -> 1MB)
+ * @param {int} byte 
+ * @returns {string} <1-1023> ['B', 'KB', 'MB', 'GB', 'TB'][log(<"byte">, 1024)];
+ */
 function parseData(byte) {
-	var more = true;
-	var value = byte;
-	var level = 0;
-	while(more) {
-		value /= 1024;
-		level += 1;
-		if(value < 1024) {
-			more = false;
-		}
-	}
-	return `${value.toFixed(2)} ${data[level]}`;
+	var level = getBaseLog(1024, byte);
+	return `${byte.toFixed(2)} ${data[level]}`;
 }
 
+/**
+ * Gets log "base" on "number" (getBaseLog(2,8) == 3)
+ * @param {int} base Log Base
+ * @param {int} number Log Number
+ * @returns {int} The logarithmic value of "number" in "base"
+ */
+function getBaseLog(base, number) {
+	return Math.log(number) / Math.log(base);
+  }
+
+/**
+ * Returns a human readable string for a better time range (1230 seconds -> 20 minutes 30 seconds)
+ * @param {int} seconds 
+ * @returns {string} Human Readable Time Range
+ */
 function forHumans(seconds) {
 	if(seconds === undefined) { return '0 seconds'; }
 	var levels = [
@@ -74,43 +98,49 @@ function forHumans(seconds) {
 	return returntext.trim();
 }
 
-function forHumansHun(seconds) {
-	if(seconds === undefined) { return '0 másodperc'; }
-	var levels = [
-		[Math.floor(seconds / 31536000), 'év'],
-		[Math.floor((seconds % 31536000) / 2592000), 'hónap'],
-		[Math.floor(((seconds % 31536000) % 2592000) / 604800), 'hét'],
-		[Math.floor((((seconds % 31536000) % 2592000) % 604800) / 86400), 'nap'],
-		[Math.floor((((seconds % 31536000) % 2592000) % 86400) / 3600), 'óra'],
-		[Math.floor(((((seconds % 31536000) % 2592000) % 86400) % 3600) / 60), 'perc'],
-		[Math.floor(((((seconds % 31536000) % 2592000) % 86400) % 3600) % 60), 'másodperc']
-	];
-	var returntext = '';
-
-	for(var i = 0, max = levels.length; i < max; i++) {
-		if(levels[i][0] === 0) continue;
-		if(levels[i][0] === 0.00) continue;
-		returntext += ` ${levels[i][0]} ${levels[i][1]}`; // eslint-disable-line
-	}
-	return returntext.trim();
-}
-
+/**
+ * Returns if "it" is contained in "array"
+ * @param {[*]} array The array to check
+ * @param {*} it The thing to check
+ * @returns {boolean} 
+ */
 function scontains(array, it) {
 	return array.indexOf(it) !== -1;
 }
 
+/**
+ * Cleans a discord input
+ * @param {string} input 
+ * @returns {string} Cleaned "input"
+ */
 function cleanIt(input) {
 	return input.replace(/<@[&!]*(\d+)>/, '$1');
 }
 
+/**
+ * Stringifies a Regular Expression (to be able to post a clean RegExp)
+ * @param {string} str The regexp string object
+ * @returns {string} The escaped RegExp string
+ */
 function escapeRegExp(str) {
 	return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&'); // eslint-disable-line
 }
 
+/**
+ * Returns if "num" is a number.
+ * @param {*} num 
+ * @returns {boolean}
+ */
 function isNumeric(num) {
 	return !isNaN(parseFloat(num)) && isFinite(num);
 }
 
+/**
+ * Removes "thing" from "arr"
+ * @param {[*]} arr The array to remove from.
+ * @param {*} thing The object to remove.
+ * @returns {[*]} The array without "thing"
+ */
 function arrayRemove(arr, thing) {
 	if(scontains(arr, thing)) {
 		return arr.slice(0, arr.indexOf(thing)).concat(arr.slice(arr.indexOf(thing) + 1, arr.length));
@@ -119,6 +149,11 @@ function arrayRemove(arr, thing) {
 	}
 }
 
+/**
+ * Creates spacing in the array of string, so that they'll become equal length
+ * @param {[string]} strs Array of strings
+ * @returns {[string]} Equal length whitepspaced strings
+ */
 function whiteSpace(strs) {
 	var maxSize = 0;
 	strs.forEach((v) => {
@@ -136,6 +171,11 @@ function whiteSpace(strs) {
 	return strs;
 }
 
+/**
+ * Parses an ugly string and returns a custom date object
+ * @param {string} timeout The ugly string to parse (?s?m?h?d?w?mo?y / More parsing inside function)
+ * @returns {{absolute: Date(), relative: int, seconds: int, minutes: int, hours: int, days: int, weeks: int, years: int, delta: int}}
+ */
 function parseUgly(timeout) {
 	timeout = timeout.replace(/\s+/g, '');
 	var SECONDS = /(\d+) *(?:seconds|seconds|sec|s)/i;
