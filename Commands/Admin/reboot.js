@@ -10,6 +10,10 @@ module.exports = class RebootCommand extends Command {
 		});
 	}
 
+	/**
+	 * Reboots the bot. Uses PM2 for auto-restart.
+	 * @param {Discord.JS Message} msg A message object
+	 */
 	exec(msg) {
 		msg.reply('Rebooting.').then(() => {
 			console.log(`Rebooting at ${new Date()}`);

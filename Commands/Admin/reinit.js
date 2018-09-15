@@ -20,6 +20,11 @@ module.exports = class ReinitCommand extends Command {
 		});
 	}
 
+	/**
+	 * Reloads a category, or all of them, by removing said category and readding all.
+	 * @param {Discord.JS Message} msg A message object
+	 * @param {{string}} param1 An object containing a DiscordAkairo string with category key string pair
+	 */
 	exec(msg, {
 		category
 	}) {

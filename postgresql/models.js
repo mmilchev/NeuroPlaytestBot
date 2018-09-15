@@ -28,7 +28,8 @@ let PLAYTESTS = database.db.define('playtests', {
 	Finished: { type: Sequelize.BOOLEAN },
 	Started: { type: Sequelize.BOOLEAN },
 	Stage: { type: Sequelize.INTEGER },
-	Channel: { type: Sequelize.BIGINT }
+	Channel: { type: Sequelize.BIGINT },
+	Pairs: { type: Sequelize.JSONB },
 });
 
 

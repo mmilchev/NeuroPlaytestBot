@@ -13,6 +13,11 @@ module.exports = class ReloadCommand extends Command {
 		});
 	}
 
+	/**
+	 * Reloads a module
+	 * @param {Discord.JS Message} msg A message object
+	 * @param {{string}} param1 A object with a {module: string} module name keypair
+	 */
 	exec(msg, { module }) {
 		const types = ['commandAlias', 'inhibitor', 'listener'];
 		var command;

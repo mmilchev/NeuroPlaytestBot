@@ -15,6 +15,10 @@ module.exports = class PullCommand extends Command {
 		});
 	}
 
+	/**
+	 * Executes "git pull" in CMD
+	 * @param {Discord.JS Message} msg A message object
+	 */
 	async exec(msg) {
 		var {
 			stdout

@@ -1,9 +1,15 @@
 let client;
 
+/**
+ * Initialization of the remind module
+ * @param {Discord.JS Client} cli Discord.JS Client
+ */
 function setup(cli) {
 	client = cli;
 }
-
+/**
+ * A loop to start checking the reminds in the database.
+ */
 function checkReminds() {
 	client.database.REMINDS.sync().then(() => {
 		client.database.REMINDS.findAll().then(res => res.forEach((elem, ind) => {
@@ -24,6 +30,13 @@ function checkReminds() {
 	});
 }
 
+/**
+ * 
+ * @param {Discord.JS Client} client 
+ * @param {string} what 
+ * @param {ChannelID} where 
+ * @param {UserID} who 
+ */
 function remind(client, what, where, who) {
 	client.channels.get(where).sendMessage("**Reminder** <@!" + who + ">!**\nThe message you want to be reminded of:\n\`\`\`\n" + what + "\n\`\`\`");
 }
