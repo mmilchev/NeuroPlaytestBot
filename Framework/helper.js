@@ -9,8 +9,7 @@ module.exports = {
 	parseData: parseData,
 	scontains: scontains,
 	cleanContent: cleanContent,
-	replaceAll: replaceAll,
-	forHumansHun: forHumansHun
+	replaceAll: replaceAll
 };
 
 /**
