@@ -23,7 +23,7 @@ module.exports = class AttendCommand extends Command {
 	}
 
 	exec(msg, {playtestid}) {
-		if (playtestid == 'upcoming') playtestid = {where: {Finished: false, When: {$gt: new Date()}},order: [['When', 'DESC']]};
+		if (playtestid == 'upcoming') playtestid = {where: {Finished: false, When: {$gt: new Date()}},order: [['When', 'ASC']]};
 		else playtestid = {where: {Finished: false, id: playtestid }};
 		this.client.database.PLAYTESTS.findOne(playtestid).then((ele) => {
 			if (ele == null) {
