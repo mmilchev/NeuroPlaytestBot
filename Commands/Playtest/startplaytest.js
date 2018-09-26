@@ -44,7 +44,7 @@ module.exports = class StartPlayTestCommand extends Command {
 		if (playtestid == 'upcoming') playtestid = {
 			where: {
 				Finished: false,
-				When: {$gt: new Date()}
+				When: {$gt: new Date() - 600000}
 			},
 			order: [
 				['When', 'ASC']
