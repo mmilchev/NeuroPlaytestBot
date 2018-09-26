@@ -17,6 +17,7 @@ function checkReminds() {
 				client.channels.get(elem.Where).sendMessage(`I'm sorry, I forgot to remind you <@!${elem.Who}>!\n I was late of *${client.helper.forHumans((Date.now() - elem.When) / 1000)}*\nReminding you of \`${elem.What}\``);
 				client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
 			} else if (elem.When - new Date() < 5000) {
+				console.log(elem.What + " / " + elem.What.startsWith("[PT]"));
 				if (elem.What.startsWith('[PT]')) {
 					client.database.PLAYTESTS.findOne({where: {Finished: false },order: [['When', 'DESC']]}).then(res => {
 						setTimeout(() => { client.channels.get(elem.Where).send(client.channels.get(elem.Where).send(`Playtest is about to begin!\n${res.Attendees.map(e => `<@!${e}>`).join(' ')}`))}, 5000);
@@ -27,13 +28,13 @@ function checkReminds() {
 					client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
 				}
 			} 
-		}));
+		}));ex 
 	});
 }
 
 /**
  * 
- * @param {Discord.JS Client} client 
+ * @param {Discord.JS Client} client ű
  * @param {string} what 
  * @param {ChannelID} where 
  * @param {UserID} who 
