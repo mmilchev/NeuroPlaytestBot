@@ -28,7 +28,7 @@ function checkReminds() {
 					client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
 				}
 			} 
-		}));ex 
+		}));
 	});
 }
 
