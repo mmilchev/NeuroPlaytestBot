@@ -1,5 +1,6 @@
 const {	Command } = require('discord-akairo');
 const util = require('util');
+const exec = util.promisify(require('child_process').execFile);
 
 module.exports = class EvalCommand extends Command {
 	constructor() {
@@ -45,6 +46,7 @@ Took: ${took} ms.
 			const rev = this.client.token.split('').reverse().join('[^]{0,2}');
 			const tokenRegex = new RegExp(`${token}|${rev}`, 'g');
 			e = e.replace(tokenRegex, '[TOKEN]');
+			var took = new Date() - start;
 			return msg.reply(`**Code:**
 \`\`\`
 ${code}

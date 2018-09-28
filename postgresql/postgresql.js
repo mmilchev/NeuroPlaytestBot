@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize');
-const Auth = require('./auth.json');
 const readdir = require('util').promisify(require('fs').readdir);
+const Auth = require('../Auth/auth.json');
 const path = require('path');
 
 class Database {
-	constructor() {
-		this.database = new Sequelize(Auth.postgresPath, { logging: false });
+	constructor(auth) {
+		this.database = new Sequelize(auth.postgresPath, { logging: false });
 	}
 
 	get db() {
