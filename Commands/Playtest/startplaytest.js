@@ -44,7 +44,7 @@ module.exports = class StartPlayTestCommand extends Command {
 		if (playtestid == 'upcoming') playtestid = {
 			where: {
 				Finished: false,
-				When: {$gt: new Date() - 600000}
+				When: {$gt: new Date().getTime() - 1800000}
 			},
 			order: [
 				['When', 'ASC']
@@ -121,7 +121,10 @@ Moving players to voicechannel in 30 seconds.`);
 			where: {
 				id: playtest.id
 			}}).then((res) => {
-				res.updateAttributes(playtest);
+				res.updateAttributes({
+					Finished: true,
+					Pairs: JSON.stringify(pairs.map((ele) => ele.map((usr) => this.client.users.get(usr).username)))
+				});
 			});
 		
 		/*var stages = [
