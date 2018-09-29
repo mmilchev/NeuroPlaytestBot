@@ -4,8 +4,7 @@ const auth = require('../Auth/auth.json');
 const path = require('path');
 
 class Database {
-	constructor(auth) {
-		console.log(auth);
+	constructor() {
 		this.database = new Sequelize(auth.postgresPath, { logging: false });
 	}
 
