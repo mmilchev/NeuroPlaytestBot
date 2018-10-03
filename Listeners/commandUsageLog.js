@@ -10,7 +10,13 @@ module.exports = class CommandHandlerCommandStartedListener extends Listener {
 	}
 
 	exec(msg, command) {
-        msg.client.channels.get(msg.client.config.channels.log).send(`-----------------------------------
+		var chan = msg.client.channels.get(msg.client.config.channels.log);
+		if (chan == undefined) {
+			msg.reply("Log Channel not found. Please change values in the config.json in order to restore functionallity. Stopping Bot.")
+			throw("Log Channel not found. Please change values in the config.json in order to restore functionallity. Stopping Bot.");
+		}
+		
+		chan.send(`-----------------------------------
 [CMD] - Issued Command: ${command.id}
      Issued by: \`${msg.author.username}#${msg.author.discriminator} / ${msg.author.id}\`
      On: \`${msg.guild === null ? msg.channel.recipient : msg.guild.name}/${msg.channel.name}\`
