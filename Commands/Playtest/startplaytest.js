@@ -192,7 +192,7 @@ Moving players to voicechannel in 30 seconds.`);
 					collector.stop('ready');
 					clearTimeout(waittime);
 				}
-				if (react.emoji.name == "thumbsup" && react.users.filter((e) => this.client.ownerID.indexOf(e) !== -1).lenght >0) {
+				if (react.emoji.name == "👍" && react.users.filter((e) => this.client.ownerID.indexOf(e) !== -1).lenght >0) {
 					collector.stop('ready');
 					clearTimeout(waittime);
 				}
