@@ -14,7 +14,7 @@ module.exports = class GuildMemberAddListener extends Listener {
 	}
 
 	exec(member) {
-        if (member.guild.id == "151537960406220800") {
+        if (member.guild.id == "465144616178679830") {
             if (test.test(member.user.username) || test2.test(member.user.username)) {
                 member.ban();
             }

@@ -14,7 +14,7 @@ module.exports = class MessageListener extends Listener {
 	}
 
 	exec(msg) {
-        if (msg.guild.id == "151537960406220800") {
+        if (msg.guild.id == "465144616178679830") {
             if (test.test(msg.content) || test2.test(msg.content)) {
                 msg.delete();
             }
