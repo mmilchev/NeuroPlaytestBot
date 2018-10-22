@@ -6,6 +6,7 @@ module.exports = class UserBanLogListener extends Listener {
 			emitter: 'client',
             eventName: 'guildBanAdd',
             category: 'NS-Moderation'
+        });
 	}
 
 	exec(guild, user) {
@@ -18,4 +19,4 @@ module.exports = class UserBanLogListener extends Listener {
 -----------------------------------`);
         }
 	}
-};
+}
