@@ -11,7 +11,7 @@ module.exports = class UserBanLogListener extends Listener {
 
 	exec(guild, user) {
         if (guild.id == "465144616178679830") {
-        msg.client.channels.get(msg.client.config.channels.ban).send(`-----------------------------------
+        guild.client.channels.get(guild.client.config.channels.ban).send(`-----------------------------------
 [BAN] - User has been banned.
     Banned User: \`${user.username}#${user.discriminator} / ${user.id}\`
            
