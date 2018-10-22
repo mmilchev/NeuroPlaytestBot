@@ -1,7 +1,7 @@
 const { Listener } = require('discord-akairo');
 
 const test = new RegExp('(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+[a-z]');
-const test2 = new RegExp('(https?:\/\/)?(www\.)?(twitter.\.(com)\/.+[a-z]');
+const test2 = new RegExp('(https?:\/\/)?(www\.)?(twitter.\.(com))\/.+[a-z]');
 
 
 module.exports = class GuildMemberAddListener extends Listener {
