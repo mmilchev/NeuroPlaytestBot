@@ -17,19 +17,30 @@ function checkReminds() {
 				client.channels.get(elem.Where).send(`I'm sorry, I forgot to remind you <@!${elem.Who}>!\n I was late of *${client.helper.forHumans((Date.now() - elem.When) / 1000)}*\nReminding you of \`${elem.What}\``);
 				client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
 			} else if (elem.When - new Date() < 5000) {
-				console.log(elem.What + " / " + elem.What.startsWith("[PT]"));
-				if (elem.What.startsWith('[PT]')) {
-					client.database.PLAYTESTS.findOne({where: {Finished: false, When: {$gt: new Date()} },order: [['When', 'ASC']]}).then(res => {
-						setTimeout(() => { client.channels.get(elem.Where).send(client.channels.get(elem.Where).send(`Playtest is about to begin!\n${res.Attendees.map(e => `<@!${e}>`).join(' ')}`))}, 5000);
-						client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
-					});
-				} else {
+				if (specialCases(elem)) return;
+				else {
 					setTimeout(function() { remind(client, elem.What, elem.Where, elem.Who); }, (elem.When - new Date()));
 					client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
 				}
 			} 
 		}));
 	});
+}
+
+function specialCases(elem) {
+	switch(elem.What) {
+		case "[PT]":
+		client.database.PLAYTESTS.findOne({where: {Finished: false, When: {$gt: new Date()} },order: [['When', 'ASC']]}).then(res => {
+			setTimeout(() => { client.channels.get(elem.Where).send(client.channels.get(elem.Where).send(`Playtest is about to begin!\n${res.Attendees.map(e => `<@!${e}>`).join(' ')}`))}, 5000);
+			client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
+		});
+		return true;
+		case "[PT2]":
+			setTimeout(() => { client.channels.get(elem.Where).send(client.channels.get(elem.Where).send(`@everyone Playtest begins in 1 hour.`)); }, 5000);
+			client.database.REMINDS.destroy({where: {What: elem.What, Where: elem.Where, Who: elem.Who}});
+		break;
+	}
+	return false;
 }
 
 /**
