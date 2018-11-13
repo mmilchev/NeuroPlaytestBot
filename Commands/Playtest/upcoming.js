@@ -18,9 +18,10 @@ module.exports = class UpcomingCommand extends Command {
 				embed: msg.client.util.embed()
 					.setTitle(`Info about the upcoming playtest ID:${ele.id}`)
 					.setColor(this.client.config.color)
-					.setFooter(`When: ${ele.When.toString()} | In: ${this.client.helper.forHumans((ele.When - new Date())/1000)}`)
+					.setFooter(`In: ${this.client.helper.forHumans((ele.When - new Date())/1000)}`)
 					.addField('Attendees', players.length == 0 ? 'Noone yet.' : players, true)
 					.addField('Stage', ele.Stage, true)
+					.setTimestamp(ele.When)
 			});
 		});
 	}
