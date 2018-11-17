@@ -38,11 +38,14 @@ module.exports = class AttendCommand extends Command {
 			ele.update({
 				Attendees: players
 			}).then(() => {
-				msg.reply(players.indexOf(msg.author.id) !== -1 ? `You successfully marked yourself as attending for the upcoming playtest.
-The playtest will be at **${ele.When.toString()}**
-Approximately in **${this.client.helper.forHumans((ele.When - new Date()) / 1000)}**
-You will be notified of the playtest 30 minutes before it.
-`: `You are no longer attending the playtest ID:**${ele.id}**`);
+				msg.reply(players.indexOf(msg.author.id) !== -1 ? 
+				msg.client.util.embed()
+					.setTitle(`You successfully marked yourself as attending for the upcoming playtest.`)
+					.setColor(this.client.config.color)
+					.setFooter(`In: ${this.client.helper.forHumans((ele.When - new Date())/1000)}`)
+					.setDescription("You will be notified of the playtest 30 minutes before it.")
+					.setTimestamp(ele.When): 
+					`You are no longer attending the playtest ID:**${ele.id}**`);
 			});
 		});
 	}
