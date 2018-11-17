@@ -39,12 +39,12 @@ module.exports = class AttendCommand extends Command {
 				Attendees: players
 			}).then(() => {
 				msg.reply(players.indexOf(msg.author.id) !== -1 ? 
-				msg.client.util.embed()
+				{embed: msg.client.util.embed()
 					.setTitle(`You successfully marked yourself as attending for the upcoming playtest.`)
 					.setColor(this.client.config.color)
 					.setFooter(`In: ${this.client.helper.forHumans((ele.When - new Date())/1000)}`)
 					.setDescription("You will be notified of the playtest 30 minutes before it.")
-					.setTimestamp(ele.When): 
+					.setTimestamp(ele.When)}: 
 					`You are no longer attending the playtest ID:**${ele.id}**`);
 			});
 		});
