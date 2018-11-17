@@ -187,12 +187,12 @@ Moving players to voicechannel in 30 seconds.`);
 			var waittime = setTimeout(() => collector.stop('timeout'), 300000);
 			collector.on('collect', (react) => {
 				toCollect = this.client.helper.arrayRemove(toCollect, react.users.last().id);
-				tocheck.edit(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. React with :thumbsup: to force start it. ${toCollect.map((e) => `<@!${e}>`).join(' ')}`)
+				tocheck.edit(`Please react to this message, so you are marked as ready. You have 5 minutes to check in. React with :thumbsup: to force start it. ${toCollect.map((e) => `<@!${e}>`).join(' ')}`);
 				if (toCollect.length == 0) {
 					collector.stop('ready');
 					clearTimeout(waittime);
 				}
-				if (react._emoji.name == "👍" && react.users.filter((e) => this.client.ownerID.indexOf(e) !== -1).lenght >0) {
+				if (react._emoji.name == "👍" && react.users.filter((e) => this.client.ownerID.indexOf(e.id) !== -1).length >0) {
 					collector.stop('ready');
 					clearTimeout(waittime);
 				}
