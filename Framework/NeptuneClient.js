@@ -62,7 +62,7 @@ class NeptuneClient extends AkairoClient {
 		var parsedTime = moment(input);
 		if (parsedTime.isValid()) return parsedTime;
 		parsedTime = chrono.parseDate(input);
-		if (parsedTime !== null) return parsedTime;
+		if (parsedTime !== null) return moment(parsedTime);
 		return false;
 	}
 }
