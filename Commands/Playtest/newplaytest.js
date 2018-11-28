@@ -6,7 +6,6 @@ module.exports = class NPTCommand extends Command {
 	constructor() {
 		super('newplaytest', {
 			aliases: ['newplaytest', 'npt'],
-			ownerOnly: true,
 			description: 'Adds a new playtest to the DB.',
 			args: [{
 				id: 'date',
