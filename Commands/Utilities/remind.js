@@ -37,7 +37,12 @@ module.exports = class RemindCommand extends Command {
                     break;
                 }
                 time = moment(time);
-                msg.reply(`I'm going to remind you in **${time.fromNow()}** about \`${what}\``);
+                msg.reply({embed: msg.client.util.embed()
+                    .setTitle('Reminder')
+                    .setColor(msg.guild.me.displayHexColor)
+                    .setFooter(time.fromNow())
+                    .setDescription("You'll be reminded of **" + what + "**")
+                    .setTimestamp(new Date(time.valueOf()))});
                 if (time.valueOf() - new Date() < 60000) {
                     setTimeout(() => {msg.client.remind.remind(this.client, what, msg.channel.id, msg.author.id)}, time.valueOf() - new Date());
                 } else {
