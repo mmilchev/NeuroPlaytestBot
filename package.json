@@ -4,7 +4,7 @@
   "description": "Discord.JS Bot based on DiscordAkairo for NeuroSlicers playtesters",
   "main": "bot.js",
   "dependencies": {
-    "chrono-node": "^1.3.5",
+    "chrono-node": "^2.2.4",
     "common-tags": "^1.7.2",
     "discord-akairo": "^7.5.4",
     "discord.js": "^11.3.0",
